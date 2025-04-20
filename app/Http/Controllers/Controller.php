@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\View;
 
 abstract class Controller
 {
+    /**
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
     public function __construct()
     {
         $categories = Category::with('children')->whereNull('parent_id')->get();
