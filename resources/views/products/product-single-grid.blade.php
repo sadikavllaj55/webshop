@@ -12,23 +12,16 @@
             </div>
             <!-- heading -->
             <div class="text-small mb-1">
-                <a href="#" class="text-decoration-none text-muted">
+                <a href="{{ route('products.index', ['cat_id' => $product->category_id]) }}" class="text-decoration-none text-muted">
                     <small>{{ $product->category }}</small>
                 </a>
             </div>
             <h2 class="fs-6">
-                <a href="#" class="text-inherit text-decoration-none">{{ $product->name }}</a>
+                <a href="{{ route('products.show', $product->id) }}" class="text-inherit text-decoration-none">{{ $product->name }}</a>
             </h2>
             <!-- rating -->
             <div>
-{{--                <small class="text-warning">--}}
-{{--                    <i class="bi bi-star-fill"></i>--}}
-{{--                    <i class="bi bi-star-fill"></i>--}}
-{{--                    <i class="bi bi-star-fill"></i>--}}
-{{--                    <i class="bi bi-star-fill"></i>--}}
-{{--                    <i class="bi bi-star-half"></i>--}}
-{{--                </small>--}}
-                    <small class="product-rating" data-rating="{{ number_format($product->rating, 2) }}"></small>
+                <small class="product-rating" data-rating="{{ number_format($product->rating, 2) }}"></small>
                 <span class="text-muted small">{{ number_format($product->rating, 2) }}({{ $product->total_reviews }})</span>
             </div>
             <!-- price -->
@@ -37,7 +30,7 @@
                     <span class="text-dark">${{ $product->price }}</span>
                 </div>
                 <div>
-                    <a href="#" class="btn btn-primary btn-sm add-to-cart-btn" data-product="{{ $product->id }}">
+                    <a href="{{ route('products.show', $product->id) }}" class="btn btn-primary btn-sm add-to-cart-btn" data-product="{{ $product->id }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                              viewBox="0 0 24 24" fill="none"
                              stroke="currentColor" stroke-width="2" stroke-linecap="round"

@@ -1,6 +1,11 @@
 @extends('layouts.front')
 
+@section('title') Shop @endsection
+
 @section('content')
+<form name="filter-form" id="filter-form" method="get" action="{{ route('products.index') }}">
+    @csrf
+    <input type="hidden" name="cat_id" value="{{ $category }}">
     <section class=" mt-8 mb-lg-14 mb-8">
         <div class="container">
             <div class="row gx-10">
@@ -10,7 +15,7 @@
                 <div class="col-lg-9 col-md-8">
                     <div class="card mb-4 bg-light border-0">
                         <div class=" card-body p-9">
-                            <h1 class="mb-0">Products</h1>
+                            <h1 class="mb-0">{{ $selected_category?->name ?? 'Products' }}</h1>
                         </div>
                     </div>
                     <div class="d-md-flex justify-content-between align-items-center">
@@ -21,21 +26,22 @@
                             <a href="/products?view=list" class="me-3 {{ app('request')->input('view', 'grid') == 'list' ? 'active' : 'text-muted' }}"><i class="bi bi-list-ul"></i></a>
                             <a href="/products" class="me-3 {{ app('request')->input('view', 'grid') == 'grid' ? 'active' : 'text-muted' }}"><i class="bi bi-grid"></i></a>
                             <div class="me-2">
-                                <!-- select option -->
-                                <select class="form-select">
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="50" selected>50</option>
+                                <select class="form-select" name="ps" form="filter-form">
+                                    <option selected>Show: {{ $page_size }}</option>
+                                    @foreach($ps_options as $ps)
+                                        @if($ps == $page_size)
+                                            @continue
+                                        @endif
+                                        <option value="{{ $ps }}">{{ $ps }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div>
-                                <!-- select option -->
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Sort by: Featured</option>
-                                    <option value="Low to High">Price: Low to High</option>
-                                    <option value="High to Low"> Price: High to Low</option>
-                                    <option value="Release Date"> Release Date</option>
-                                    <option value="Avg. Rating"> Avg. Rating</option>
+                                <select class="form-select" name="sort" form="filter-form">
+                                    <option selected>Sort by: Release Date</option>
+                                    <option value="price.asc">Price: Low to High</option>
+                                    <option value="price.desc">Price: High to Low</option>
+                                    <option value="rating">Avg. Rating</option>
                                 </select>
                             </div>
                         </div>
@@ -48,7 +54,6 @@
                     <!-- Pagination -->
                     <div class="row mt-8">
                         <div class="col">
-                            <!-- nav -->
                             <nav>{{ $products->links() }}</nav>
                         </div>
                     </div>
@@ -56,8 +61,10 @@
             </div>
         </div>
     </section>
+</form>
 @endsection
 
 @section('scripts')
-    <script type="module" src="{{ asset('assets/js/page/app.js') }}"></script>
+    <script src="{{ asset('assets/js/page/app.js') }}"></script>
+    <script></script>
 @endsection

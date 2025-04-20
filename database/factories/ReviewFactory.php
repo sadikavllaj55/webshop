@@ -24,7 +24,8 @@ class ReviewFactory extends Factory
         return [
             'product_id' => $this->faker->randomElement(Product::query()->pluck('id')),
             'user_id' => $this->faker->randomElement(User::query()->pluck('id')),
-            'rating' => $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) / 2,
+            'rating' => $this->faker->randomElement([1, 2, 3, 4, 5]),
+            'title' => $this->faker->sentence(),
             'comment' => $this->faker->text(),
         ];
     }

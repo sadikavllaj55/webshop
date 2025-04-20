@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductReview;
 use App\Models\ShoppingCart;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -17,8 +18,11 @@ class ProductController extends Controller
     public function index(Request $request): View
     {
         $view = $request->query('view', 'grid');
-        $page_size = $request->query('ps', 20);
+        $page_size = $request->query('ps', 10);
+        $order_by = $request->query('order', 'date');
+
         $category = $request->query('cat_id');
+        $selected_category = null;
 
         if ($view === 'grid') {
             $product_list_classes = 'row g-4 row-cols-xl-4 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2';
@@ -28,8 +32,6 @@ class ProductController extends Controller
             abort(404);
         }
 
-        $categories = Category::with('children')->whereNull('parent_id')->get();
-
         $query = Product::shopItems();
 
         $price_limits = Product::query()->select(DB::raw('MIN(price) as min, MAX(price) as max'))->first();
@@ -37,33 +39,64 @@ class ProductController extends Controller
         if ($category !== null) {
             $query = $query->where('products.category_id', '=', $category)
                 ->orWhere('categories.parent_id', '=', $category);
+            $selected_category = Category::query()->findOrFail($category);
         }
 
-        $products = $query->groupBy('products.id')->latest()->paginate($page_size);
+        $products = $query->groupBy('products.id');
+
+        switch ($order_by) {
+            case 'price':
+                $products = $products->orderBy('products.price');
+                break;
+            case 'price_desc':
+                $products = $products->orderBy('products.price', 'desc');
+                break;
+            case 'rating':
+                $products = $products->orderBy('rating', 'desc');
+                break;
+            case 'date':
+            default:
+                $products = $products->latest('products.created_at');
+        }
+
+        $products = $products->paginate($page_size);
 
         return view(
             'products.index',
-            compact('view', 'products', 'categories', 'product_list_classes', 'price_limits')
+            compact(
+                'view',
+                'products',
+                'product_list_classes',
+                'price_limits',
+                'category',
+                'selected_category',
+                'page_size'
+            )
         );
     }
 
     public function show($id): View
     {
-        $product = Product::with('images', 'category')->findOrFail($id);
-        return view('products.show', compact('product'));
+        $product = Product::with(['images', 'category'])->findOrFail($id);
+        $reviews = ProductReview::with('author')->where('product_id', $id)->paginate(20);
+
+        $ratings_count = $product->reviews->countBy(function ($item) {
+            return $item->rating;
+        });
+        return view('products.view', compact('product', 'ratings_count', 'reviews'));
     }
 
     /**
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function addToCart(Request $request)
+    public function addToCart(Request $request): JsonResponse
     {
         $cart = ShoppingCart::fromSession();
 
         $product_id = $request->input('product');
 
-        $product = Product::findOrFail($product_id);
+        $product = Product::query()->findOrFail($product_id);
 
         $cart->add($product);
         $cart->save();

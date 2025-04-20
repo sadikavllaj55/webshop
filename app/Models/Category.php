@@ -27,6 +27,9 @@ class Category extends Model
         return $this->belongsTo(Category::class, 'parent_id');
     }
 
+    /**
+     * @return HasMany
+     */
     public function children(): HasMany
     {
         return $this->hasMany(Category::class, 'parent_id');
@@ -59,5 +62,14 @@ class Category extends Model
         }
 
         return $cat_list;
+    }
+
+    public function inTree(?int $id): bool
+    {
+        if ($id === null) {
+            return false;
+        }
+
+        return $this->id == $id || $this->children()->pluck('id')->contains($id);
     }
 }

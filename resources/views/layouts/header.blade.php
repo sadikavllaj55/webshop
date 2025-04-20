@@ -2,7 +2,7 @@
     <div class="bg-light py-1">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 col-12"><span> Super Value Deals - Save more with coupons</span></div>
+                <div class="col-md-6 col-12"></div>
                 <div class="col-6 text-end d-none d-md-block">
                     <div class="dropdown">
                         <a class="dropdown-toggle text-decoration-none  text-muted" href="#" role="button"
@@ -28,7 +28,6 @@
                                 </svg>
                             </span> English
                         </a>
-
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item " href="#"><span class="me-2">
 
@@ -97,12 +96,12 @@
         <div class="container">
             <div class="row w-100 align-items-center g-3">
                 <div class="col-xxl-2 col-lg-3">
-                    <a class="navbar-brand d-none d-lg-block" href="index.html">
-                        <img src="assets/images/freshcart-logo.svg" alt="eCommerce HTML Template">
+                    <a class="navbar-brand d-none d-lg-block" href="/">
+                        <img src="{{ asset('assets/images/freshcart-logo.svg') }}" alt="Logo">
                     </a>
                     <div class="d-flex justify-content-between w-100 d-lg-none">
-                        <a class="navbar-brand" href="index.html">
-                            <img src="assets/images/freshcart-logo.svg" alt="eCommerce HTML Template">
+                        <a class="navbar-brand" href="/">
+                            <img src="{{ asset('assets/images/freshcart-logo.svg') }}" alt="Logo">
                         </a>
 
                         <div class="d-flex align-items-center lh-1">
@@ -233,7 +232,7 @@
               <rect x="14" y="3" width="7" height="7"></rect>
               <rect x="14" y="14" width="7" height="7"></rect>
               <rect x="3" y="14" width="7" height="7"></rect>
-            </svg></span> All Categories
+            </svg></span> Categories
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     @foreach($categories as $category)
@@ -258,19 +257,14 @@
                 <rect x="14" y="3" width="7" height="7"></rect>
                 <rect x="14" y="14" width="7" height="7"></rect>
                 <rect x="3" y="14" width="7" height="7"></rect>
-              </svg></span> All Departments
+              </svg></span> Categories
                     </a>
                     <div class="collapse mt-2" id="collapseExample">
                         <div class="card card-body">
                             <ul class="mb-0 list-unstyled">
-                                <li><a class="dropdown-item" href="#">Dairy, Bread & Eggs</a></li>
-                                <li><a class="dropdown-item" href="#">Snacks & Munchies</a></li>
-                                <li><a class="dropdown-item" href="#">Fruits & Vegetables</a></li>
-                                <li><a class="dropdown-item" href="#">Cold Drinks & Juices</a></li>
-                                <li><a class="dropdown-item" href="#">Breakfast & Instant Food</a></li>
-                                <li><a class="dropdown-item" href="#">Bakery & Biscuits</a></li>
-
-                                <li><a class="dropdown-item" href="#">Chicken, Meat & Fish</a></li>
+                                @foreach($categories as $category)
+                                    <li><a class="dropdown-item" href="{{ route('products.index', ['cat_id' => $category->id]) }}">{{ $category->name }}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>

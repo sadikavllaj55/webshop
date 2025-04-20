@@ -17,7 +17,7 @@
     <link href="{{ asset('assets/libs/slick-carousel/slick-theme.css') }}" rel="stylesheet"/>
     <link href="{{ asset('assets/css/simplebar.min.css') }}" rel="stylesheet"/>
     <link href="{{ asset('assets/css/nouislider.min.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('assets/css/tiny-slider.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/libs/tiny-slider/tiny-slider.css') }}" rel="stylesheet"/>
     <link href="{{ asset('assets/css/dropzone.min.css') }}" rel="stylesheet"/>
     <link href="{{ asset('assets/css/prism-okaidia.min.css') }}" rel="stylesheet"/>
 
@@ -48,7 +48,7 @@
 <script src="{{ asset('assets/js/prism-scss.min.js') }}"></script>
 <script src="{{ asset('assets/js/prism-toolbar.min.js') }}"></script>
 <script src="{{ asset('assets/js/prism-copy-to-clipboard.min.js') }}"></script>
-<script src="{{ asset('assets/js/tiny-slider.js') }}"></script>
+<script src="{{ asset('assets/libs/tiny-slider/min/tiny-slider.js') }}"></script>
 <script src="{{ asset('assets/js/dropzone.min.js') }}"></script>
 <script src="{{ asset('assets/js/flatpickr.min.js') }}"></script>
 <script src="{{ asset('assets/js/theme.min.js') }}"></script>
