@@ -50,6 +50,9 @@ class ShoppingCart implements \JsonSerializable
         session()->put('cart', $this);
     }
 
+    /**
+     * @return OrderItem[]
+     */
     public function getItems(): array
     {
         return $this->items;

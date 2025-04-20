@@ -70,4 +70,14 @@ class ProductController extends Controller
 
         return new JsonResponse($cart);
     }
+
+    public function getCartItems()
+    {
+        $cart = ShoppingCart::fromSession();
+        $items = $cart->getItems();
+
+        return response()->json([
+            'items' => $items,
+        ]);
+    }
 }

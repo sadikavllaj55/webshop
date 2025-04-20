@@ -32,12 +32,20 @@ function addToCart() {
             method: 'POST',
             url: '/add-to-cart',
             data: {product: $(this).data('product')},
-            success: function (data) {
+            success: function (result) {
                 const cartView = new bootstrap.Offcanvas('#offcanvasRight');
                 cartView.show();
+                updateShoppingCartUI(result);
             }
         });
     });
+}
+
+function updateShoppingCartUI(result) {
+    const cart_item_container = document.getElementById('cart-items-container');
+    const cart_total = document.getElementById('cart-total');
+    cart_item_container.innerHTML = '';
+    cart_total.innerHTML = '$' + result['total'];
 }
 
 function rating() {
