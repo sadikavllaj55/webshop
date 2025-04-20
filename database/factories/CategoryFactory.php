@@ -20,9 +20,9 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word(), // Random category name
+            'name' => ucfirst($this->faker->unique()->word()), // Random category name
             'description' => $this->faker->sentence(), // Random description
-            'id_categories' => $this->faker->randomElement(Category::pluck('id')->toArray()) // Random parent category
+            'parent_id' => $this->faker->randomElement(Category::pluck('id')->toArray()) // Random parent category
         ];
     }
 
@@ -35,7 +35,7 @@ class CategoryFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'id_categories' => null, // No parent category
+                'parent_id' => null, // No parent category
             ];
         });
     }

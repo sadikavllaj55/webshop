@@ -3,7 +3,6 @@
 @section('content')
 
 <div class="py-3">
-
     <section class="my-lg-14 my-8">
 
         <div class="container">
