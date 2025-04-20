@@ -40,7 +40,6 @@ function addToCart() {
     });
 }
 
-window.addEventListener('load', () => {
 function rating() {
     const ratings = document.querySelectorAll('.product-rating');
 
