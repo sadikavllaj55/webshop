@@ -41,6 +41,20 @@ function addToCart() {
 }
 
 window.addEventListener('load', () => {
+function rating() {
+    const ratings = document.querySelectorAll('.product-rating');
+
+    ratings.forEach((el) => {
+        raterJs({
+            element: el,
+            readOnly: true,
+            rate: parseFloat(el.dataset.rate)
+        });
+    });
+}
+
+window.addEventListener('load', () => {
     filters();
     addToCart();
+    rating();
 });

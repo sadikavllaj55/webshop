@@ -28,7 +28,7 @@
                             <i class="bi bi-star-half"></i>
                             <i class="bi bi-star"></i>
                         </small>
-                        <span class="text-muted small">3.5(456)</span>
+                        <span class="text-muted small">{{ number_format($product->rating, 2) }}({{ $product->total_reviews }})</span>
                     </div>
                     <div class="mt-6">
                         <div>
