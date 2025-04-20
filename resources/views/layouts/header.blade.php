@@ -239,17 +239,12 @@
               <rect x="14" y="3" width="7" height="7"></rect>
               <rect x="14" y="14" width="7" height="7"></rect>
               <rect x="3" y="14" width="7" height="7"></rect>
-            </svg></span> All Departments
+            </svg></span> All Categories
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">Dairy, Bread & Eggs</a></li>
-                    <li><a class="dropdown-item" href="#">Snacks & Munchies</a></li>
-                    <li><a class="dropdown-item" href="#">Fruits & Vegetables</a></li>
-                    <li><a class="dropdown-item" href="#">Cold Drinks & Juices</a></li>
-                    <li><a class="dropdown-item" href="#">Breakfast & Instant Food</a></li>
-                    <li><a class="dropdown-item" href="#">Bakery & Biscuits</a></li>
-
-                    <li><a class="dropdown-item" href="#">Chicken, Meat & Fish</a></li>
+                    @foreach($categories as $category)
+                        <li><a class="dropdown-item" href="{{ route('products.index', ['cat_id' => $category->id]) }}">{{ $category->name }}</a></li>
+                    @endforeach
                 </ul>
             </div>
             <div class="offcanvas offcanvas-start p-4 p-lg-0" id="navbar-default">

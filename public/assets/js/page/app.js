@@ -4,8 +4,6 @@ function filters() {
     const min = parseInt(slider.dataset.min);
     const max = parseInt(slider.dataset.max);
 
-    console.info(slider);
-
     noUiSlider.create(slider, {
         connect: true,
         behaviour: "tap",
@@ -22,6 +20,19 @@ function filters() {
     });
 }
 
-document.addEventListener('readystatechange', () => {
+function rating() {
+    const ratings = document.querySelectorAll('.product-rating');
+
+    ratings.forEach((el) => {
+        raterJs({
+            element: el,
+            readOnly: true,
+            rate: parseFloat(el.dataset.rate)
+        });
+    });
+}
+
+window.addEventListener('load', () => {
     filters();
+    rating();
 });

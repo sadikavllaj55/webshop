@@ -42,7 +42,6 @@
 <script src="{{ asset('assets/js/simplebar.min.js') }}"></script>
 <script src="{{ asset('assets/js/nouislider.min.js') }}"></script>
 <script src="{{ asset('assets/js/wNumb.min.js') }}"></script>
-<script src="{{ asset('assets/js/index.js') }}"></script>
 <script src="{{ asset('assets/js/prism.js') }}"></script>
 <script src="{{ asset('assets/js/prism-scss.min.js') }}"></script>
 <script src="{{ asset('assets/js/prism-toolbar.min.js') }}"></script>
@@ -51,6 +50,7 @@
 <script src="{{ asset('assets/js/dropzone.min.js') }}"></script>
 <script src="{{ asset('assets/js/flatpickr.min.js') }}"></script>
 <script src="{{ asset('assets/js/theme.min.js') }}"></script>
+<script src="{{ asset('assets/libs/rater.js') }}"></script>
 
 @yield('scripts')
 

@@ -21,13 +21,15 @@
             </h2>
             <!-- rating -->
             <div>
-                <small class="text-warning"> <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-half"></i>
-                </small>
-                <span class="text-muted small">4.5(149)</span>
+{{--                <small class="text-warning">--}}
+{{--                    <i class="bi bi-star-fill"></i>--}}
+{{--                    <i class="bi bi-star-fill"></i>--}}
+{{--                    <i class="bi bi-star-fill"></i>--}}
+{{--                    <i class="bi bi-star-fill"></i>--}}
+{{--                    <i class="bi bi-star-half"></i>--}}
+{{--                </small>--}}
+                    <small class="product-rating" data-rating="{{ number_format($product->rating, 2) }}"></small>
+                <span class="text-muted small">{{ number_format($product->rating, 2) }}({{ $product->total_reviews }})</span>
             </div>
             <!-- price -->
             <div class="d-flex justify-content-between align-items-center mt-3">

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
@@ -34,6 +35,7 @@ class Product extends Model
     public static function shopItems(): Builder
     {
         return Product::query()
+            ->join('reviews', 'products.id', '=', 'reviews.product_id', 'left')
             ->join(
                 'product_images',
                 function (JoinClause $join) {
@@ -48,9 +50,11 @@ class Product extends Model
                 'left'
             )->select([
                 'products.*',
-                'categories.id as category_id',
+                'products.name as product_name',
                 'categories.name as category',
                 'product_images.path as image_path',
+                DB::raw('AVG(reviews.rating) as rating'),
+                DB::raw('COUNT(reviews.id) as total_reviews'),
             ]);
     }
 }

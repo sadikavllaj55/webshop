@@ -59,5 +59,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('assets/js/page/app.js') }}"></script>
+    <script type="module" src="{{ asset('assets/js/page/app.js') }}"></script>
 @endsection
