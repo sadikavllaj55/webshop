@@ -22,3 +22,4 @@ yarn-error.log
 /.vscode
 /.zed
 /public/images
+/_ide_helper_models.php

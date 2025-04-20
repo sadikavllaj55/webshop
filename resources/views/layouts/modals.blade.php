@@ -41,7 +41,6 @@
 <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
-
             <div class="modal-body p-6">
                 <div class="d-flex justify-content-between align-items-start ">
                     <div>
@@ -97,7 +96,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -250,6 +248,51 @@
 
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add Review Modal -->
+<div class="modal fade" id="productReviewModal" tabindex="-1" aria-labelledby="productReviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body p-6">
+                <div class="d-flex justify-content-between align-items-start ">
+                    <div>
+                        <h5 class="mb-1" id="productReviewModalLabel">Write a review</h5>
+                        <p class="mb-0 small">We welcome your feedback.</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div>
+                    <div class="border-bottom py-4 mb-4">
+                        <h5>Add a headline</h5>
+                        <input type="text" class="form-control"
+                               placeholder="What’s most important to know">
+                    </div>
+                    <div class="border-bottom py-4 mb-4">
+                        <h5>Add a photo or video</h5>
+                        <p>Shoppers find images and videos more helpful than text alone.</p>
+                        <!-- form -->
+                        <form action="#" class=" dropzone profile-dropzone">
+                            <div class="fallback">
+                                <input name="file" type="file" multiple/>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class=" py-4 mb-4">
+                        <!-- heading -->
+                        <h5>Add a written review</h5>
+                        <textarea class="form-control" rows="3"
+                                  placeholder="What did you like or dislike? What did you use this product for?"></textarea>
+
+                    </div>
+                    <!-- button -->
+                    <div class="d-flex justify-content-end">
+                        <a href="#" class="btn btn-primary">Submit Review</a>
                     </div>
                 </div>
             </div>

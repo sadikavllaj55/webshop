@@ -17,6 +17,7 @@ namespace App\Models{
  *
  * @property mixed $name
  * @property int $id
+ * @property string $slug
  * @property string|null $description
  * @property int|null $parent_id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -35,6 +36,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereParentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereUpdatedAt($value)
  */
 	class Category extends \Eloquent {}
@@ -119,6 +121,8 @@ namespace App\Models{
  * @property-read \App\Models\ProductImage|null $image
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductImage> $images
  * @property-read int|null $images_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductReview> $reviews
+ * @property-read int|null $reviews_count
  * @method static \Database\Factories\ProductFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newQuery()
@@ -168,19 +172,53 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property int $product_id
+ * @property int $user_id
+ * @property int $rating
+ * @property string $title
+ * @property string|null $comment
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User|null $author
+ * @property-read \App\Models\Product|null $product
+ * @method static \Database\Factories\ReviewFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductReview newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductReview newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductReview query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductReview whereComment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductReview whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductReview whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductReview whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductReview whereRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductReview whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductReview whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductReview whereUserId($value)
+ */
+	class ProductReview extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string $name
  * @property string $email
  * @property string $password
  * @property int $is_admin
+ * @property string|null $avatar
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductReview> $reviews
+ * @property-read int|null $reviews_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereAvatar($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereId($value)

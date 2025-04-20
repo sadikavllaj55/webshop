@@ -4,14 +4,14 @@
         <h5 class="mb-3">Categories</h5>
         <ul class="nav nav-category" id="categoryCollapseMenu">
             @foreach($categories as $cat)
-                <li class="nav-item border-bottom w-100 collapsed" data-bs-toggle="collapse"
+                <li class="nav-item border-bottom w-100 {{ $cat->inTree(request('cat_id')) ? '' : 'collapsed' }}" data-bs-toggle="collapse"
                     data-bs-target="#category{{ $cat->id }}" aria-expanded="false"
                     aria-controls="categorycategory{{ $cat->id }}">
                     <a href="#" class="nav-link">{{ $cat->name }} @if($cat->children)
                             <i class="feather-icon icon-chevron-right"></i>
                         @endif</a>
                     @if($cat->children)
-                        <div id="category{{ $cat->id }}" class="accordion-collapse collapse"
+                        <div id="category{{ $cat->id }}" class="accordion-collapse collapse {{ $cat->inTree(request('cat_id')) ? 'show' : '' }}"
                              data-bs-parent="#categoryCollapseMenu">
                             <div>
                                 <ul class="nav flex-column ms-3">
@@ -29,41 +29,18 @@
             @endforeach
         </ul>
     </div>
-    <div class="py-4">
+    {{--<div class="py-4">
         <h5 class="mb-3">Stores</h5>
         <div class="my-4">
-            <!-- input -->
             <input type="search" class="form-control" placeholder="Search by store">
         </div>
         <div class="form-check mb-2">
-            <!-- input -->
             <input class="form-check-input" type="checkbox" value="" id="eGrocery" checked>
             <label class="form-check-label" for="eGrocery">
                 E-Grocery
             </label>
         </div>
-        <div class="form-check mb-2">
-            <!-- input -->
-            <input class="form-check-input" type="checkbox" value="" id="DealShare">
-            <label class="form-check-label" for="DealShare">
-                DealShare
-            </label>
-        </div>
-        <div class="form-check mb-2">
-            <!-- input -->
-            <input class="form-check-input" type="checkbox" value="" id="Dmart">
-            <label class="form-check-label" for="Dmart">
-                DMart
-            </label>
-        </div>
-        <div class="form-check mb-2">
-            <!-- input -->
-            <input class="form-check-input" type="checkbox" value="" id="Blinkit">
-            <label class="form-check-label" for="Blinkit">
-                Blinkit
-            </label>
-        </div>
-    </div>
+    </div>--}}
     <!-- Price -->
     <div class="py-4">
         <h5 class="mb-3">Price</h5>
@@ -80,8 +57,7 @@
         <h5 class="mb-3">Rating</h5>
         <div>
             <div class="form-check mb-2">
-                <!-- input -->
-                <input class="form-check-input" type="checkbox" value="" id="ratingFive">
+                <input form="filter-form" class="form-check-input" type="radio" name="min_rating" value="5" id="ratingFive">
                 <label class="form-check-label" for="ratingFive">
                     <i class="bi bi-star-fill text-warning"></i>
                     <i class="bi bi-star-fill text-warning "></i>
@@ -91,8 +67,7 @@
                 </label>
             </div>
             <div class="form-check mb-2">
-                <!-- input -->
-                <input class="form-check-input" type="checkbox" value="" id="ratingFour" checked>
+                <input form="filter-form" class="form-check-input" type="radio" name="min_rating" value="4" id="ratingFour">
                 <label class="form-check-label" for="ratingFour">
                     <i class="bi bi-star-fill text-warning"></i>
                     <i class="bi bi-star-fill text-warning "></i>
@@ -102,8 +77,7 @@
                 </label>
             </div>
             <div class="form-check mb-2">
-                <!-- input -->
-                <input class="form-check-input" type="checkbox" value="" id="ratingThree">
+                <input form="filter-form" class="form-check-input" type="radio" name="min_rating" value="3" id="ratingThree">
                 <label class="form-check-label" for="ratingThree">
                     <i class="bi bi-star-fill text-warning"></i>
                     <i class="bi bi-star-fill text-warning "></i>
@@ -113,8 +87,7 @@
                 </label>
             </div>
             <div class="form-check mb-2">
-                <!-- input -->
-                <input class="form-check-input" type="checkbox" value="" id="ratingTwo">
+                <input form="filter-form" class="form-check-input" type="radio" name="min_rating" value="2" id="ratingTwo">
                 <label class="form-check-label" for="ratingTwo">
                     <i class="bi bi-star-fill text-warning"></i>
                     <i class="bi bi-star-fill text-warning"></i>
@@ -124,8 +97,7 @@
                 </label>
             </div>
             <div class="form-check mb-2">
-                <!-- input -->
-                <input class="form-check-input" type="checkbox" value="" id="ratingOne">
+                <input form="filter-form" class="form-check-input" type="radio" name="min_rating" value="1" id="ratingOne">
                 <label class="form-check-label" for="ratingOne">
                     <i class="bi bi-star-fill text-warning"></i>
                     <i class="bi bi-star text-warning"></i>

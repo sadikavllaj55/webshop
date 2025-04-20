@@ -32,6 +32,11 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(ProductReview::class);
+    }
+
     public static function shopItems(): Builder
     {
         return Product::query()
@@ -50,7 +55,6 @@ class Product extends Model
                 'left'
             )->select([
                 'products.*',
-                'products.name as product_name',
                 'categories.name as category',
                 'product_images.path as image_path',
                 DB::raw('AVG(reviews.rating) as rating'),

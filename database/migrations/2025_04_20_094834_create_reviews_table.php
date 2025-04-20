@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->integer('product_id')->index();
             $table->integer('user_id')->index();
-            $table->float('rating');
+            $table->integer('rating');
+            $table->string('title', 512);
             $table->text('comment')->nullable();
             $table->timestamps();
         });
