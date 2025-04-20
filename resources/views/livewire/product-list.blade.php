@@ -34,29 +34,36 @@
                 </ul>
             </div>
     </div>
-    <div class="mb-4">
-        <h5 class="mb-2">Filter by Price</h5>
-        <div id="price-slider"></div>
-        <div class="d-flex justify-content-between mt-2">
-            <span id="price-min">€0</span>
-            <span id="price-max">€1000</span>
-        </div>
-    </div>
-
-    <div class="row">
-        @forelse ($products as $product)
-            <div class="col-md-3 mb-4">
-                <div class="card h-100">
-                    <img src="{{ $product->main_image_url ?? 'https://via.placeholder.com/300x200' }}" class="card-img-top" alt="{{ $product->name }}">
+    <div class="row g-4 row-cols-lg-5 row-cols-2 row-cols-md-3">
+        @foreach($products as $product)
+            <div class="col">
+                <div class="card card-product">
                     <div class="card-body">
-                        <h5 class="card-title">{{ $product->name }}</h5>
-                        <p class="card-text">${{ number_format($product->price, 2) }}</p>
+                        <div class="text-center position-relative ">
+                            <a href="#"> <img src="assets/images/products/product-img-1.jpg"
+                                              alt="Grocery Ecommerce Template"
+                                              class="mb-3 img-fluid"></a>
+                        </div>
+                        <div class="text-small mb-1"><a href="#" class="text-decoration-none text-muted"><small>{{ $product->category->name }}</small></a></div>
+                        <h2 class="fs-6"><a href="#" class="text-inherit text-decoration-none">{{ $product->name }}</a></h2>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div><span class="text-dark">{{ $product->price }} $</span>
+                            </div>
+                            <div><a href="#" class="btn btn-primary btn-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                         fill="none"
+                                         stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round"
+                                         class="feather feather-plus">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                    Add</a></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        @empty
-            <p>No products found.</p>
-        @endforelse
+                @endforeach
     </div>
 
     <div>

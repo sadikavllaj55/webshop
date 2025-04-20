@@ -35,7 +35,7 @@
                     <span class="text-dark">${{ $product->price }}</span>
                 </div>
                 <div>
-                    <a href="#" class="btn btn-primary btn-sm">
+                    <a href="#" class="btn btn-primary btn-sm add-to-cart-btn" data-product="{{ $product->id }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                              viewBox="0 0 24 24" fill="none"
                              stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -51,3 +51,4 @@
         </div>
     </div>
 </div>
+

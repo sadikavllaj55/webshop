@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ShoppingCart;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class ProductController extends Controller
 {
@@ -44,14 +48,27 @@ class ProductController extends Controller
         );
     }
 
-//    public function category(string $name): View
-//    {
-//
-//    }
-
     public function show($id): View
     {
         $product = Product::with('images')->findOrFail($id);
         return view('products.show', compact('product'));
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function addToCart(Request $request)
+    {
+        $cart = ShoppingCart::fromSession();
+
+        $product_id = $request->input('product');
+
+        $product = Product::findOrFail($product_id);
+
+        $cart->add($product);
+        $cart->save();
+
+        return new JsonResponse($cart);
     }
 }

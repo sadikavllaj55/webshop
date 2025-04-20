@@ -1,10 +1,14 @@
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 function filters() {
     const slider = document.getElementById('price-limits');
     const slider_value = document.getElementById('price-limits-value');
     const min = parseInt(slider.dataset.min);
     const max = parseInt(slider.dataset.max);
-
-    console.info(slider);
 
     noUiSlider.create(slider, {
         connect: true,
@@ -22,6 +26,21 @@ function filters() {
     });
 }
 
-document.addEventListener('readystatechange', () => {
+function addToCart() {
+    $('.add-to-cart-btn').on('click', function () {
+        $.ajax({
+            method: 'POST',
+            url: '/add-to-cart',
+            data: {product: $(this).data('product')},
+            success: function (data) {
+                const cartView = new bootstrap.Offcanvas('#offcanvasRight');
+                cartView.show();
+            }
+        });
+    });
+}
+
+window.addEventListener('load', () => {
     filters();
+    addToCart();
 });
