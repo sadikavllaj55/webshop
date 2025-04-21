@@ -11,10 +11,8 @@
                 <!-- collapse --> </a>
             <div id="flush-collapseFour" class="accordion-collapse collapse "
                  data-bs-parent="#accordionFlushExample">
-
                 <div class="mt-5">
                     <div>
-
                         <div class="card card-bordered shadow-none mb-2">
                             <!-- card body -->
                             <div class="card-body p-6">
@@ -72,11 +70,7 @@
                                         <!-- input -->
                                         <div class="mb-3  mb-lg-0 position-relative">
                                             <label class="form-label">Expiry date </label>
-                                            <input class="form-control flatpickr " type="text" placeholder="Select Date">
-                                            <div class="position-absolute bottom-0 end-0 p-3 lh-1">
-                                                <i class="bi bi-calendar text-muted"></i>
-                                            </div>
-
+                                            <input class="form-control" type="date" placeholder="Select Date">
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-12">

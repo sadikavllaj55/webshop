@@ -34,6 +34,8 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
+        $items = $this->getCartItems();
+        dd($items);
         $items = $request->input('items', []);
         $totalPrice = 0;
 
