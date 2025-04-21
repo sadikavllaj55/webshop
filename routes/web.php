@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,11 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/cart-items', [ProductController::class, 'getCartItems']);
 Route::get('/category/{name}', [ProductController::class, 'category'])->name('products.category');
+
+Route::get('/checkout',[OrderController::class,'index'])->name('checkout.index');
+Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
+Route::get('/checkout',[OrderController::class,'index'])->name('order.address');
+
 
 
 //Route::get('/products', function () {

@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('reference_id')->unique()->index();
             $table->string('customer_name');
             $table->string('customer_email')->index();
             $table->string('customer_phone')->nullable();
             $table->string('shipping_address');
             $table->string('billing_address')->nullable();
-
             $table->decimal('total_price', 10, 2);
-            $table->string('status')->default('pending')->index();
+            $table->unsignedBigInteger('status_id')->default(1)->index();
 
             $table->timestamps();
         });
