@@ -61,10 +61,10 @@
             </div>
             <div class="d-grid cart-checkout-btn-container">
                 @if(!empty($cart->getItems()))
-                    <button class="btn btn-primary btn-lg d-flex justify-content-between align-items-center"
+                    <a href="{{ route('checkout.index') }}" class="btn btn-primary btn-lg d-flex justify-content-between align-items-center"
                             type="submit" id="cart-submit-btn">
                         Go to Checkout <span class="fw-bold" id="cart-total">${{ $cart->getTotal() }}</span>
-                    </button>
+                    </a>
                 @else
                     <div class="alert alert-warning">
                         No items in the shopping cart

@@ -87,7 +87,7 @@ class ProductController extends Controller
         $product = Product::with(['images', 'category'])->findOrFail($id);
         $reviews = ProductReview::with('author')->where('product_id', $id)->paginate(20);
 
-        $ratings_count = $product->reviews->countBy(function ($item) {
+        $ratings_count = $reviews->countBy(function ($item) {
             return $item->rating;
         });
         return view('products.view', compact('product', 'ratings_count', 'reviews'));

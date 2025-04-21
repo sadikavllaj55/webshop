@@ -12,17 +12,17 @@
                     <!-- title -->
                     <h4 class="mb-3">Customer reviews</h4>
                     <div>
-                        <span class="bs-rating" data-rating="{{ number_format($product->reviews->avg('rating'), 2) }}"></span>
-                        <span class="ms-3">{{ number_format($product->reviews->avg('rating'), 2) }} out of 5</span>
+                        <span class="bs-rating" data-rating="{{ number_format($reviews->avg('rating'), 2) }}"></span>
+                        <span class="ms-3">{{ number_format($reviews->avg('rating'), 2) }} out of 5</span>
                         <div class="ms-3">
-                            <small>{{ $product->reviews->count() }} ratings</small>
+                            <small>{{ $reviews->count() }} ratings</small>
                         </div>
                     </div>
                 </div>
                 <div class="mb-8">
                 @foreach(range(5, 1, -1) as $stars)
                     @php
-                        $percentage = (int)(($ratings_count[$stars] * 100) / $product->reviews->count());
+                        $percentage = $reviews->count() > 0 ? (int)((($ratings_count[$stars] ?? 0) * 100) / $reviews->count()) : 0;
                     @endphp
                     <div class="d-flex align-items-center mb-2">
                         <div class="text-nowrap me-3 text-muted">

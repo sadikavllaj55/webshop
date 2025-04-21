@@ -106,7 +106,6 @@ function cartEvents() {
 function updateShoppingCartUI(result) {
     const cart_el = document.getElementById('offcanvasRight');
     const cart_item_container = document.getElementById('cart-items-container');
-    const cart_total = document.getElementById('cart-total');
     const checkout_btn_container = document.querySelector('.cart-checkout-btn-container');
 
     if (!cart_el.classList.contains('show')) {
@@ -157,15 +156,15 @@ function updateShoppingCartUI(result) {
         cart_item_container.append(li);
     }
 
-    if (Object.entries(result.items).length == 0) {
+    if (Object.entries(result.items).length === 0) {
         checkout_btn_container.innerHTML = `<div class="alert alert-warning">
             No items in the shopping cart
         </div>`;
     } else {
-        checkout_btn_container.innerHTML = `<button class="btn btn-primary btn-lg d-flex justify-content-between align-items-center" type="submit"
+        checkout_btn_container.innerHTML = `<a href="/checkout" class="btn btn-primary btn-lg d-flex justify-content-between align-items-center" type="submit"
                 id="cart-submit-btn">
             Go to Checkout <span class="fw-bold" id="cart-total">$${result.total}</span>
-        </button>`;
+        </a>`;
     }
 
     cartEvents();

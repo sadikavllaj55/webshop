@@ -15,6 +15,6 @@ cd ${DIR}
 
 cd storage/app/public/images/avatars/
 
-for i in {1..100} ; do
+for i in {51..100} ; do
     wget -O "avatar-${i}.png" "https://avatar.iran.liara.run/public"
 done
