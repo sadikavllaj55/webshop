@@ -23,15 +23,10 @@ Route::get('/products/{id}', [ProductController::class, 'show'])->name('products
 Route::get('/cart-items', [ProductController::class, 'getCartItems']);
 Route::get('/category/{name}', [ProductController::class, 'category'])->name('products.category');
 
-Route::get('/checkout',[OrderController::class,'index'])->name('checkout.index');
+Route::get('/checkout', [OrderController::class, 'index'])->name('checkout.index');
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
-Route::get('/checkout',[OrderController::class,'index'])->name('order.address');
+Route::post('/order/saveAddress', [OrderController::class, 'storeAddress'])->name('save.address');
 
-
-
-//Route::get('/products', function () {
-//    return view('products');
-//})->name('products.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

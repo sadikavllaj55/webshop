@@ -66,11 +66,24 @@ class OrderController extends Controller
             ]);
 
         }
-        return redirect()->route('order.address', ['ref' => $order->reference_id]);
+        return $this->ordeRref($order->reference_id);
+    }
+
+    public function ordeRref($referenceId)
+    {
+
+        $order = Order::where('reference_id', $referenceId)->firstOrFail();
+
+        return view('checkout.shipping', compact('order'));
     }
 
     public function getProducts($productIds)
     {
         return Product::whereIn('id', $productIds)->get();
+    }
+
+    public function storeAddress(Request $request)
+    {
+        dd($request->all());
     }
 }
