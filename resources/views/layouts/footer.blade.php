@@ -86,19 +86,19 @@
                     <ul class="list-inline mb-0">
                         <li class="list-inline-item text-dark">Payment Partners</li>
                         <li class="list-inline-item">
-                            <a href="#"><img src="assets/images/amazonpay.svg" alt=""></a>
+                            <a href="#"><img src="{{ asset('assets/images/amazonpay.svg') }}" alt=""></a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="#"><img src="assets/images/american-express.svg" alt=""></a>
+                            <a href="#"><img src="{{ asset('assets/images/american-express.svg') }}" alt=""></a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="#"><img src="assets/images/mastercard.svg" alt=""></a>
+                            <a href="#"><img src="{{ asset('assets/images/mastercard.svg') }}" alt=""></a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="#"><img src="assets/images/paypal.svg" alt=""></a>
+                            <a href="#"><img src="{{ asset('assets/images/paypal.svg') }}" alt=""></a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="#"><img src="assets/images/visa.svg" alt=""></a>
+                            <a href="#"><img src="{{ asset('assets/images/visa.svg') }}" alt=""></a>
                         </li>
                     </ul>
                 </div>
@@ -106,10 +106,10 @@
                     <ul class="list-inline mb-0 text-lg-end text-center">
                         <li class="list-inline-item mb-2 mb-md-0 text-dark">Get deliveries with FreshCart</li>
                         <li class="list-inline-item ms-4">
-                            <a href="#"> <img src="assets/images/appstore-btn.svg" alt=""
+                            <a href="#"> <img src="{{ asset('assets/images/appstore-btn.svg') }}" alt=""
                                               style="width: 140px;"></a></li>
                         <li class="list-inline-item">
-                            <a href="#"> <img src="assets/images/googleplay-btn.svg" alt=""
+                            <a href="#"> <img src="{{ asset('assets/images/googleplay-btn.svg') }}" alt=""
                                               style="width: 140px;"></a></li>
                     </ul>
                 </div>
@@ -117,7 +117,7 @@
         </div>
         <div class="border-top py-4">
             <div class="row align-items-center">
-                <div class="col-md-6"><span class="small text-muted">Copyright 2023 © FreshCart eCommerce HTML Template.  All rights reserved. Powered by Codescandy.</span>
+                <div class="col-md-6"><span class="small text-muted">Copyright {{ date('Y') }} © FreshCart eCommerce HTML Template.  All rights reserved. Powered by Codescandy.</span>
                 </div>
                 <div class="col-md-6">
                     <ul class="list-inline text-md-end mb-0 small mt-3 mt-md-0">

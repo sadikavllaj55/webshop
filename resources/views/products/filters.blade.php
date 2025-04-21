@@ -56,56 +56,18 @@
     <div class="py-4">
         <h5 class="mb-3">Rating</h5>
         <div>
-            <div class="form-check mb-2">
-                <input form="filter-form" class="form-check-input" type="radio" name="min_rating" value="5" id="ratingFive">
-                <label class="form-check-label" for="ratingFive">
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning "></i>
-                    <i class="bi bi-star-fill text-warning "></i>
-                    <i class="bi bi-star-fill text-warning "></i>
-                    <i class="bi bi-star-fill text-warning "></i>
-                </label>
-            </div>
-            <div class="form-check mb-2">
-                <input form="filter-form" class="form-check-input" type="radio" name="min_rating" value="4" id="ratingFour">
-                <label class="form-check-label" for="ratingFour">
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning "></i>
-                    <i class="bi bi-star-fill text-warning "></i>
-                    <i class="bi bi-star-fill text-warning "></i>
-                    <i class="bi bi-star text-warning"></i>
-                </label>
-            </div>
-            <div class="form-check mb-2">
-                <input form="filter-form" class="form-check-input" type="radio" name="min_rating" value="3" id="ratingThree">
-                <label class="form-check-label" for="ratingThree">
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning "></i>
-                    <i class="bi bi-star-fill text-warning "></i>
-                    <i class="bi bi-star text-warning"></i>
-                    <i class="bi bi-star text-warning"></i>
-                </label>
-            </div>
-            <div class="form-check mb-2">
-                <input form="filter-form" class="form-check-input" type="radio" name="min_rating" value="2" id="ratingTwo">
-                <label class="form-check-label" for="ratingTwo">
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star text-warning"></i>
-                    <i class="bi bi-star text-warning"></i>
-                    <i class="bi bi-star text-warning"></i>
-                </label>
-            </div>
-            <div class="form-check mb-2">
-                <input form="filter-form" class="form-check-input" type="radio" name="min_rating" value="1" id="ratingOne">
-                <label class="form-check-label" for="ratingOne">
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star text-warning"></i>
-                    <i class="bi bi-star text-warning"></i>
-                    <i class="bi bi-star text-warning"></i>
-                    <i class="bi bi-star text-warning"></i>
-                </label>
-            </div>
+            @foreach(range(5,1, -1) as $stars)
+                <div class="form-check mb-2">
+                    <input form="filter-form" class="filter-input form-check-input" type="radio" name="min_rating" {{ ($stars === (int)$min_rating) ? 'checked' : '' }} value="{{ $stars }}" id="rating-{{ $stars }}">
+                    <label class="form-check-label" for="rating-{{ $stars }}">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi {{ ($stars - 1) >= 1 ? 'bi-star-fill' : 'bi-star' }} text-warning "></i>
+                        <i class="bi {{ ($stars - 2) >= 1 ? 'bi-star-fill' : 'bi-star' }} text-warning "></i>
+                        <i class="bi {{ ($stars - 3) >= 1 ? 'bi-star-fill' : 'bi-star' }} text-warning "></i>
+                        <i class="bi {{ ($stars - 4) >= 1 ? 'bi-star-fill' : 'bi-star' }} text-warning "></i>
+                    </label>
+                </div>
+            @endforeach
         </div>
     </div>
 </div>

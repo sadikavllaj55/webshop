@@ -4,8 +4,8 @@
 
 @section('content')
 <form name="filter-form" id="filter-form" method="get" action="{{ route('products.index') }}">
-    @csrf
-    <input type="hidden" name="cat_id" value="{{ $category }}">
+    <input class="filter-input" type="hidden" name="cat_id" value="{{ $category }}">
+    <input class="filter-input" type="hidden" name="view" value="{{ $view }}">
     <section class=" mt-8 mb-lg-14 mb-8">
         <div class="container">
             <div class="row gx-10">
@@ -23,11 +23,11 @@
                             <p class="mb-3 mb-md-0"><span class="text-dark">{{ $products->total() }} </span> Products found </p>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
-                            <a href="/products?view=list" class="me-3 {{ app('request')->input('view', 'grid') == 'list' ? 'active' : 'text-muted' }}"><i class="bi bi-list-ul"></i></a>
-                            <a href="/products" class="me-3 {{ app('request')->input('view', 'grid') == 'grid' ? 'active' : 'text-muted' }}"><i class="bi bi-grid"></i></a>
+                            <a href="#" data-view="list" class="change-view me-3 {{ ($view ?? 'grid') == 'list' ? 'active' : 'text-muted' }}"><i class="bi bi-list-ul"></i></a>
+                            <a href="#" data-view="grid" class="change-view me-3 {{ ($view ?? 'grid') == 'grid' ? 'active' : 'text-muted' }}"><i class="bi bi-grid"></i></a>
                             <div class="me-2">
-                                <select class="form-select" name="ps" form="filter-form">
-                                    <option selected>Show: {{ $page_size }}</option>
+                                <select class="filter-input form-select" name="ps">
+                                    <option value="{{ $page_size }}" selected>Show: {{ $page_size }}</option>
                                     @foreach($ps_options as $ps)
                                         @if($ps == $page_size)
                                             @continue
@@ -37,11 +37,14 @@
                                 </select>
                             </div>
                             <div>
-                                <select class="form-select" name="sort" form="filter-form">
-                                    <option selected>Sort by: Release Date</option>
-                                    <option value="price.asc">Price: Low to High</option>
-                                    <option value="price.desc">Price: High to Low</option>
-                                    <option value="rating">Avg. Rating</option>
+                                <select class="filter-input form-select" name="order">
+                                    <option value="{{ $order }}" selected>Sort by: {{ $sort_options[$order] }}</option>
+                                    @foreach($sort_options as $sort => $text)
+                                        @if($sort == $order)
+                                            @continue
+                                        @endif
+                                    <option value="{{ $sort }}">{{ $text }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

@@ -242,7 +242,7 @@
             </div>
             <div class="offcanvas offcanvas-start p-4 p-lg-0" id="navbar-default">
                 <div class="d-flex justify-content-between align-items-center mb-2 d-block d-lg-none">
-                    <div><img src="assets/images/freshcart-logo.svg" alt="eCommerce HTML Template"></div>
+                    <div><img src="{{ asset('assets/images/freshcart-logo.svg') }}" alt="Icon"></div>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="d-block d-lg-none mb-2 pt-2">
@@ -278,7 +278,7 @@
                 <div class="d-none d-lg-block">
                     <ul class="navbar-nav ">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="index.html" role="button"
+                            <a class="nav-link dropdown-toggle" href="/" role="button"
                                data-bs-toggle="dropdown"
                                aria-expanded="false">
                                 Home
@@ -296,26 +296,10 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="product_filter.html">Shop List - Filter</a></li>
-                                <!-- <li><a class="dropdown-item" href="">Shop - Filter</a></li> -->
-                                <!-- <li><a class="dropdown-item" href="">Shop Wide</a></li> -->
                                 <li><a class="dropdown-item" href="single_product_page.html">Product Page</a></li>
                                 <li><a class="dropdown-item" href="wish_list.html">My Wishlist</a></li>
-                                <li><a class="dropdown-item" href="cart_list.html">My Cart</a></li>
-                                <li><a class="dropdown-item" href="checkout_page.html">Shop Checkout</a></li>
                             </ul>
                         </li>
-                        <!--   <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                              aria-expanded="false">
-                              Stores
-                            </a>
-                            <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="./pages/store-list.html">Store List</a></li>
-                              <li><a class="dropdown-item" href="./pages/store-grid.html">Store Grid</a></li>
-                              <li><a class="dropdown-item" href="./pages/store-single.html">Store Single</a></li>
-
-                            </ul>
-                          </li> -->
 
                         <li class="nav-item dropdown dropdown-fullwidth">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -364,7 +348,7 @@
                                     </div>
                                     <div class="col-lg-3 col-12 mb-4 mb-lg-0">
                                         <div class="card border-0">
-                                            <img src="assets/images/menu-banner.jpg" alt="eCommerce HTML Template"
+                                            <img src="{{ asset('assets/images/menu-banner.jpg') }}" alt="eCommerce HTML Template"
                                                  class="img-fluid rounded-3">
                                             <div class="position-absolute ps-6 mt-8">
                                                 <h5 class=" mb-0 ">Dont miss this <br>offer today.</h5>

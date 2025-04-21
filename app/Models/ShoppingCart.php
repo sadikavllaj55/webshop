@@ -11,21 +11,35 @@ class ShoppingCart implements \JsonSerializable
 
     public function add(Product $product, int $quantity = 1): void
     {
-        $item = new OrderItem();
-
-        $item->product_id = $product->id;
-        $item->quantity = $quantity;
-        $item->price = $product->price;
-        $item->product = $product;
-
         if (array_key_exists($product->id, $this->items)) {
             $this->items[$product->id]->quantity += $quantity;
         } else {
+            $item = new OrderItem();
+
+            $item->product_id = $product->id;
+            $item->quantity = $quantity;
+            $item->price = $product->price;
+            $item->product = $product;
+
             $this->items[$product->id] = $item;
         }
     }
 
-    public function getTotal(): float
+    public function sub(Product $product, int $quantity = 1): void
+    {
+        if (($this->items[$product->id]?->quantity ?? 0) <= 1) {
+            unset($this->items[$product->id]);
+        } else {
+            $this->items[$product->id]->quantity -= $quantity;
+        }
+    }
+
+    public function remove(Product $product): void
+    {
+        unset($this->items[$product->id]);
+    }
+
+    public function getTotal(): float|string
     {
         $total = 0.0;
 
@@ -34,15 +48,6 @@ class ShoppingCart implements \JsonSerializable
         }
 
         return $total;
-    }
-
-    public function remove(Product $product, int $quantity = 1): void
-    {
-        if (($this->items[$product->id]?->quantity ?? 0) <= 1) {
-            unset($this->items[$product->id]);
-        } else {
-            $this->items[$product->id]->quantity -= $quantity;
-        }
     }
 
     public function save(): void

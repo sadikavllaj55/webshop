@@ -16,16 +16,11 @@ Route::post('/login', [LoginController::class, 'login']);
 // Logout
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::post('/add-to-cart', [ProductController::class, 'addToCart'])->name('add-to-cart');
+Route::post('/cart', [ProductController::class, 'updateCart'])->name('updateCart');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/cart-items', [ProductController::class, 'getCartItems']);
 Route::get('/category/{name}', [ProductController::class, 'category'])->name('products.category');
-
-
-//Route::get('/products', function () {
-//    return view('products');
-//})->name('products.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -19,7 +19,8 @@ class ProductController extends Controller
     {
         $view = $request->query('view', 'grid');
         $page_size = $request->query('ps', 10);
-        $order_by = $request->query('order', 'date');
+        $order = $request->query('order', 'date');
+        $min_rating = $request->query('min_rating');
 
         $category = $request->query('cat_id');
         $selected_category = null;
@@ -42,9 +43,13 @@ class ProductController extends Controller
             $selected_category = Category::query()->findOrFail($category);
         }
 
+        if ($min_rating !== null) {
+            $query = $query->having('rating', '>=', $min_rating);
+        }
+
         $products = $query->groupBy('products.id');
 
-        switch ($order_by) {
+        switch ($order) {
             case 'price':
                 $products = $products->orderBy('products.price');
                 break;
@@ -70,7 +75,9 @@ class ProductController extends Controller
                 'price_limits',
                 'category',
                 'selected_category',
-                'page_size'
+                'page_size',
+                'order',
+                'min_rating'
             )
         );
     }
@@ -90,15 +97,28 @@ class ProductController extends Controller
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function addToCart(Request $request): JsonResponse
+    public function updateCart(Request $request): JsonResponse
     {
         $cart = ShoppingCart::fromSession();
 
         $product_id = $request->input('product');
+        $operation = $request->input('operation', 'add');
+        $quantity = $request->input('quantity', '0');
 
-        $product = Product::query()->findOrFail($product_id);
+        $product = Product::with('image')->findOrFail($product_id);
 
-        $cart->add($product);
+        if ($operation === 'add') {
+            $cart->add($product, intval($quantity));
+        }
+
+        if ($operation === 'sub') {
+            $cart->sub($product, intval($quantity));
+        }
+
+        if ($operation === 'clear') {
+            $cart->remove($product);
+        }
+
         $cart->save();
 
         return new JsonResponse($cart);
