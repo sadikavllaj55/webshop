@@ -21,6 +21,8 @@ class ProductController extends Controller
         $page_size = $request->query('ps', 10);
         $order = $request->query('order', 'date');
         $min_rating = $request->query('min_rating');
+        $price_min = $request->query('price_min');
+        $price_max = $request->query('price_max');
 
         $category = $request->query('cat_id');
         $selected_category = null;
@@ -41,6 +43,14 @@ class ProductController extends Controller
             $query = $query->where('products.category_id', '=', $category)
                 ->orWhere('categories.parent_id', '=', $category);
             $selected_category = Category::query()->findOrFail($category);
+        }
+
+        if ($price_min !== null) {
+            $query = $query->where('products.price', '>=', $price_min);
+        }
+
+        if ($price_max !== null) {
+            $query = $query->where('products.price', '<=', $price_max);
         }
 
         if ($min_rating !== null) {
@@ -66,6 +76,18 @@ class ProductController extends Controller
 
         $products = $products->paginate($page_size);
 
+        $filters = [
+            'order' => $order,
+            'ps' => $page_size,
+            'cat_id' => $category,
+            'view' => $view,
+            'min_rating' => $min_rating,
+            'price_min' => $price_min,
+            'price_max' => $price_max,
+        ];
+
+        $products->appends($filters);
+
         return view(
             'products.index',
             compact(
@@ -77,7 +99,9 @@ class ProductController extends Controller
                 'selected_category',
                 'page_size',
                 'order',
-                'min_rating'
+                'min_rating',
+                'price_min',
+                'price_max',
             )
         );
     }
@@ -122,15 +146,5 @@ class ProductController extends Controller
         $cart->save();
 
         return new JsonResponse($cart);
-    }
-
-    public function getCartItems()
-    {
-        $cart = ShoppingCart::fromSession();
-        $items = $cart->getItems();
-
-        return response()->json([
-            'items' => $items,
-        ]);
     }
 }

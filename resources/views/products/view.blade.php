@@ -12,7 +12,12 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Bakery Biscuits</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Shop</a></li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('products.index', ['cat_id' => $product->category_id]) }}">
+                                    {{ $product->category->name }}
+                                </a>
+                            </li>
                             <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
                         </ol>
                     </nav>
@@ -26,21 +31,22 @@
                 <!-- Images -->
                 <div class="col-md-6">
                     <div class="product" id="product">
-                    @foreach($product->images as $image)
-                        <div class="zoom" onmousemove="zoom()" style="background-image: url({{ asset($image->path) }})">
-                            <img src="{{ asset($image->path) }}" alt="">
-                        </div>
-                    @endforeach
+                        @foreach($product->images as $image)
+                            <div class="zoom" onmousemove="zoom()"
+                                 style="background-image: url({{ asset($image->path) }})">
+                                <img src="{{ asset($image->path) }}" alt="">
+                            </div>
+                        @endforeach
                     </div>
                     <div class="product-tools">
                         <div class="thumbnails row g-3" id="productThumbnails">
-                        @foreach($product->images as $image)
-                            <div class="col-3">
-                                <div class="thumbnails-img">
-                                    <img src="{{ asset($image->path) }}" alt="">
+                            @foreach($product->images as $image)
+                                <div class="col-3">
+                                    <div class="thumbnails-img">
+                                        <img src="{{ asset($image->path) }}" alt="">
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -73,7 +79,8 @@
                                 </div>
                             </div>
                             <div class="ms-2 col-lg-4 col-5 d-grid">
-                                <button type="button" class="add-cart btn btn-primary" data-product="{{ $product->id }}">
+                                <button type="button" class="add-cart btn btn-primary"
+                                        data-product="{{ $product->id }}">
                                     <i class="feather-icon icon-shopping-bag me-2"></i>Add to cart
                                 </button>
                             </div>
@@ -103,7 +110,8 @@
                                 </tr>
                                 <tr>
                                     <td>Shipping:</td>
-                                    <td><small>01 day shipping.<span class="text-muted">( Free pickup today)</span></small></td>
+                                    <td><small>01 day shipping.<span
+                                                    class="text-muted">( Free pickup today)</span></small></td>
 
                                 </tr>
                                 </tbody>
@@ -117,7 +125,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="#"><i
-                                                class="bi bi-facebook me-2"></i>Facebook</a></li>
+                                                    class="bi bi-facebook me-2"></i>Facebook</a></li>
                                     <li><a class="dropdown-item" href="#"><i class="bi bi-twitter me-2"></i>Twitter</a>
                                     </li>
                                     <li><a class="dropdown-item" href="#"><i class="bi bi-instagram me-2"></i>Instagram</a>
@@ -174,7 +182,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="reviews-tab-pane" role="tabpanel" aria-labelledby="reviews-tab" tabindex="0">
+                        <div class="tab-pane fade" id="reviews-tab-pane" role="tabpanel" aria-labelledby="reviews-tab"
+                             tabindex="0">
                             @include('products.product-tabs.reviews')
                         </div>
                     </div>

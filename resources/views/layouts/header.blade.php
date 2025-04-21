@@ -1,4 +1,5 @@
 <div class="border-bottom pb-5">
+    <!-- Language -->
     <div class="bg-light py-1">
         <div class="container">
             <div class="row">
@@ -92,6 +93,7 @@
             </div>
         </div>
     </div>
+    <!-- Navbar -->
     <nav class="navbar navbar-light py-lg-5 pt-3 px-0 pb-0">
         <div class="container">
             <div class="row w-100 align-items-center g-3">
@@ -103,9 +105,23 @@
                         <a class="navbar-brand" href="/">
                             <img src="{{ asset('assets/images/freshcart-logo.svg') }}" alt="Logo">
                         </a>
-
                         <div class="d-flex align-items-center lh-1">
                             <div class="list-inline me-4">
+                                <div class="list-inline-item">
+                                    <a class="text-muted" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                                       role="button" aria-controls="offcanvasRight">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             viewBox="0 0 24 24" fill="none"
+                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                             stroke-linejoin="round"
+                                             class="feather feather-shopping-bag">
+                                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                                @guest()
                                 <div class="list-inline-item">
                                     <a href="#" class="text-muted" data-bs-toggle="modal" data-bs-target="#userModal">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -118,20 +134,32 @@
                                         </svg>
                                     </a>
                                 </div>
-                                <div class="list-inline-item">
-                                    <a class="text-muted" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-                                       href="#offcanvasRight" role="button" aria-controls="offcanvasRight">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                             viewBox="0 0 24 24" fill="none"
-                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                             stroke-linejoin="round"
-                                             class="feather feather-shopping-bag">
-                                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                                            <line x1="3" y1="6" x2="21" y2="6"></line>
-                                            <path d="M16 10a4 4 0 0 1-8 0"></path>
-                                        </svg>
-                                    </a>
-                                </div>
+                                @endguest
+                                @auth()
+                                    <div class="list-inline-item dropdown">
+                                        <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" class="">
+                                            <img src="{{ asset(Auth::user()->avatar) }}" alt="" class="avatar avatar-md rounded-circle">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end p-0">
+                                            <div class="lh-1 px-5 py-4 border-bottom">
+                                                <h5 class="mb-1 h6">{{ Auth::user()->name }}</h5>
+                                                <small>{{ Auth::user()->email }}</small>
+                                            </div>
+                                            <ul class="list-unstyled p-2 mb-0">
+                                                <li><a class="dropdown-item" href="#">My Profile</a></li>
+                                                <li><a class="dropdown-item" href="#">My Orders</a></li>
+                                                <li><a class="dropdown-item" href="#">My Wishlist</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li>
+                                                    <a href="#" class="dropdown-item text-danger logout-link">Log Out</a>
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                        {{ csrf_field() }}
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                @endauth
                             </div>
                             <!-- Button -->
                             <button class="navbar-toggler collapsed" type="button" data-bs-toggle="offcanvas"
@@ -161,44 +189,12 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-2 col-xxl-3 d-none d-lg-block">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn  btn-outline-gray-400 text-muted" data-bs-toggle="modal"
-                            data-bs-target="#locationModal">
-                        <i class="feather-icon icon-map-pin me-2"></i>Location
-                    </button>
-
-
-                </div>
-                <div class="col-md-2 col-xxl-1 text-end d-none d-lg-block">
+                <div class="col-xxl-4 col-lg-4 text-end d-none d-lg-block">
                     <div class="list-inline">
-                        <div class="list-inline-item">
-                            <a href="#" class="text-muted position-relative">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                     fill="none"
-                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round"
-                                     class="feather feather-heart">
-                                    <path
-                                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                    </path>
-                                </svg>
-                            </a></div>
-                        <div class="list-inline-item">
-                            <a href="#" class="text-muted" data-bs-toggle="modal" data-bs-target="#userModal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                     fill="none"
-                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round"
-                                     class="feather feather-user">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                </svg>
-                            </a></div>
                         <div class="list-inline-item">
                             <a class="text-muted position-relative " data-bs-toggle="offcanvas"
                                data-bs-target="#offcanvasRight"
-                               href="#offcanvasRight" role="button" aria-controls="offcanvasRight">
+                               href="#" role="button" aria-controls="offcanvasRight">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                      fill="none"
                                      stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -212,13 +208,51 @@
                                     {{ count(session()->get('cart')?->getItems() ?? []) }}
                                 </span>
                             </a>
-
                         </div>
+                        @guest()
+                        <div class="list-inline-item">
+                            <a href="#" class="text-muted" data-bs-toggle="modal" data-bs-target="#userModal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     class="feather feather-user">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                            </a></div>
+                        @endguest
+                        @auth()
+                            <div class="list-inline-item dropdown">
+                                <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" class="">
+                                    <img src="{{ asset(Auth::user()->avatar) }}" alt="" class="avatar avatar-md rounded-circle">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end p-0">
+                                    <div class="lh-1 px-5 py-4 border-bottom">
+                                        <h5 class="mb-1 h6">{{ Auth::user()->name }}</h5>
+                                        <small>{{ Auth::user()->email }}</small>
+                                    </div>
+                                    <ul class="list-unstyled p-2 mb-0">
+                                        <li><a class="dropdown-item" href="#">My Profile</a></li>
+                                        <li><a class="dropdown-item" href="#">My Orders</a></li>
+                                        <li><a class="dropdown-item" href="#">My Wishlist</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li>
+                                            <a href="#" class="dropdown-item text-danger logout-link">Log Out</a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                {{ csrf_field() }}
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        @endauth
                     </div>
                 </div>
             </div>
         </div>
     </nav>
+    <!-- Main menu -->
     <nav class="navbar navbar-expand-lg navbar-light navbar-default pt-0 pb-0">
         <div class="container px-0 px-md-3">
             <div class="dropdown me-3 d-none d-lg-block">
@@ -240,6 +274,7 @@
                     @endforeach
                 </ul>
             </div>
+            <!-- Mobile menu -->
             <div class="offcanvas offcanvas-start p-4 p-lg-0" id="navbar-default">
                 <div class="d-flex justify-content-between align-items-center mb-2 d-block d-lg-none">
                     <div><img src="{{ asset('assets/images/freshcart-logo.svg') }}" alt="Icon"></div>
@@ -247,17 +282,18 @@
                 </div>
                 <div class="d-block d-lg-none mb-2 pt-2">
                     <a class="btn btn-primary w-100 d-flex justify-content-center align-items-center"
-                       data-bs-toggle="collapse"
-                       href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-            <span class="me-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    class="feather feather-grid">
-                <rect x="3" y="3" width="7" height="7"></rect>
-                <rect x="14" y="3" width="7" height="7"></rect>
-                <rect x="14" y="14" width="7" height="7"></rect>
-                <rect x="3" y="14" width="7" height="7"></rect>
-              </svg></span> Categories
+                       data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+                       aria-controls="collapseExample">
+                        <span class="me-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-grid">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                        </span> Categories
                     </a>
                     <div class="collapse mt-2" id="collapseExample">
                         <div class="card card-body">
@@ -269,96 +305,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-lg-none d-block mb-3">
-                    <button type="button" class="btn  btn-outline-gray-400 text-muted w-100 " data-bs-toggle="modal"
-                            data-bs-target="#locationModal">
-                        <i class="feather-icon icon-map-pin me-2"></i>Pick Location
-                    </button>
-                </div>
                 <div class="d-none d-lg-block">
                     <ul class="navbar-nav ">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="/" role="button"
-                               data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                Home
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Home 1</a></li>
-                                <li><a class="dropdown-item" href="#">Home 2</a></li>
-                                <li><a class="dropdown-item" href="#">Home 3</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                Shop
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="product_filter.html">Shop List - Filter</a></li>
-                                <li><a class="dropdown-item" href="single_product_page.html">Product Page</a></li>
-                                <li><a class="dropdown-item" href="wish_list.html">My Wishlist</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item dropdown dropdown-fullwidth">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                Mega menu
-                            </a>
-                            <div class=" dropdown-menu pb-0">
-
-                                <div class="row p-2 p-lg-4">
-                                    <div class="col-lg-3 col-6 mb-4 mb-lg-0">
-                                        <h6 class="text-primary ps-3">Dairy, Bread & Eggs</h6>
-                                        <a class="dropdown-item" href="#">Butter</a>
-                                        <a class="dropdown-item" href="#">Milk Drinks</a>
-                                        <a class="dropdown-item" href="#">Curd & Yogurt</a>
-                                        <a class="dropdown-item" href="#">Eggs</a>
-                                        <a class="dropdown-item" href="#">Buns & Bakery</a>
-                                        <a class="dropdown-item" href="#">Cheese</a>
-                                        <a class="dropdown-item" href="#">Condensed Milk</a>
-                                        <a class="dropdown-item" href="#">Dairy Products</a>
-
-                                    </div>
-                                    <div class="col-lg-3 col-6 mb-4 mb-lg-0">
-                                        <h6 class="text-primary ps-3">Breakfast & Instant Food</h6>
-                                        <a class="dropdown-item" href="#">Breakfast Cereal</a>
-                                        <a class="dropdown-item" href="#"> Noodles, Pasta & Soup</a>
-                                        <a class="dropdown-item" href="#">Frozen Veg Snacks</a>
-                                        <a class="dropdown-item" href="#"> Frozen Non-Veg Snacks</a>
-                                        <a class="dropdown-item" href="#"> Vermicelli</a>
-                                        <a class="dropdown-item" href="#"> Instant Mixes</a>
-                                        <a class="dropdown-item" href="#"> Batter</a>
-                                        <a class="dropdown-item" href="#"> Fruit and Juices</a>
-
-                                    </div>
-                                    <div class="col-lg-3 col-12 mb-4 mb-lg-0">
-                                        <h6 class="text-primary ps-3">Cold Drinks & Juices</h6>
-                                        <a class="dropdown-item" href="#">Soft Drinks</a>
-                                        <a class="dropdown-item" href="#">Fruit Juices</a>
-                                        <a class="dropdown-item" href="#">Coldpress</a>
-                                        <a class="dropdown-item" href="#">Water & Ice Cubes</a>
-                                        <a class="dropdown-item" href="#">Soda & Mixers</a>
-                                        <a class="dropdown-item" href="#">Health Drinks</a>
-                                        <a class="dropdown-item" href="#">Herbal Drinks</a>
-                                        <a class="dropdown-item" href="#">Milk Drinks</a>
-
-
-                                    </div>
-                                    <div class="col-lg-3 col-12 mb-4 mb-lg-0">
-                                        <div class="card border-0">
-                                            <img src="{{ asset('assets/images/menu-banner.jpg') }}" alt="eCommerce HTML Template"
-                                                 class="img-fluid rounded-3">
-                                            <div class="position-absolute ps-6 mt-8">
-                                                <h5 class=" mb-0 ">Dont miss this <br>offer today.</h5>
-                                                <a href="#" class="btn btn-primary btn-sm mt-3">Shop Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
+                            <a class="nav-link" href="{{ route('products.index') }}">Shop</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -368,188 +318,28 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="blog.html">Blog</a></li>
                                 <li><a class="dropdown-item" href="single_blog.html">Blog Single</a></li>
-                                <!-- <li><a class="dropdown-item" href="./pages/blog-category.html">Blog Category</a></li> -->
                                 <li><a class="dropdown-item" href="about_us.html">About Us</a></li>
-                                <!-- <li><a class="dropdown-item" href="./pages/404error.html">404 Error</a></li> -->
                                 <li><a class="dropdown-item" href="contact_us.html">Contact Us</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                Account
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="sign_in.html">Sign in</a></li>
-                                <li><a class="dropdown-item" href="sign_up.html">Signup</a></li>
-                                <!-- <li><a class="dropdown-item" href="./pages/forgot-password.html">Forgot Password</a></li> -->
-                                <li class="dropdown-submenu dropend">
-                                    <a class="dropdown-item dropdown-list-group-item dropdown-toggle" href="#">
-                                        My Account
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="order_list.html">Orders</a></li>
-                                        <li><a class="dropdown-item" href="account_settings.html">Settings</a></li>
-                                        <!-- <li><a class="dropdown-item" href="./pages/account-address.html">Address</a></li> -->
-                                        <!-- <li><a class="dropdown-item" href="./pages/account-payment-method.html">Payment Method</a></li> -->
-                                        <li><a class="dropdown-item" href="#">Notification</a></li>
-
-
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <!--  <li class="nav-item ">
-                           <a class="nav-link" href="./docs/index.html">
-                             Docs
-                           </a>
-
-                         </li> -->
                     </ul>
                 </div>
                 <div class="d-block d-lg-none">
                     <ul class="navbar-nav ">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="index.html" role="button"
-                               data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                Home
-                            </a>
-                            <!--  <ul class="dropdown-menu">
-                               <li><a class="dropdown-item" href="./index.html">Home 1</a></li>
-                               <li><a class="dropdown-item" href="./pages/index-2.html">Home 2</a></li>
-                               <li><a class="dropdown-item" href="./pages/index-3.html">Home 3</a></li>
-
-                             </ul> -->
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                               aria-expanded="false">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('products.index') }}">
                                 Shop
                             </a>
-                            <ul class="dropdown-menu">
-                                <!-- <li><a class="dropdown-item" href="#">Shop Grid - Filter</a></li> -->
-                                <!-- <li><a class="dropdown-item" href="#">Shop Grid - 3 column</a> -->
-                                <li><a class="dropdown-item" href="product_filter.html">Shop List - Filter</a></li>
-                                <!-- <li><a class="dropdown-item" href="">Shop - Filter</a></li> -->
-                                <!-- <li><a class="dropdown-item" href="">Shop Wide</a></li> -->
-                                <li><a class="dropdown-item" href="single_product_page.html">Product Page</a></li>
-                                <li><a class="dropdown-item" href="wish_list.html">My Wishlist</a></li>
-                                <li><a class="dropdown-item" href="cart_list.html">My Cart</a></li>
-                                <li><a class="dropdown-item" href="checkout_page.html">Shop Checkout</a></li>
-                            </ul>
-                        </li>
-                        <!--  <li class="nav-item dropdown">
-                           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                             aria-expanded="false">
-                             Stores
-                           </a>
-                           <ul class="dropdown-menu">
-                             <li><a class="dropdown-item" href="./pages/store-list.html">Store List</a></li>
-                             <li><a class="dropdown-item" href="./pages/store-grid.html">Store Grid</a></li>
-                             <li><a class="dropdown-item" href="./pages/store-single.html">Store Single</a></li>
-
-                           </ul>
-                         </li> -->
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                Mega Menu
-                            </a>
-                            <ul class="dropdown-menu">
-
-                                <li class="dropdown-submenu ">
-                                    <a class="dropdown-item dropdown-list-group-item dropdown-toggle" href="#">
-                                        Dairy, Bread & Eggs
-                                    </a>
-                                    <ul class="dropdown-menu">
-
-
-                                        <li><a class="dropdown-item" href="#">Milk Drinks</a></li>
-                                        <li><a class="dropdown-item" href="#">Curd & Yogurt</a></li>
-                                        <li><a class="dropdown-item" href="#">Eggs</a></li>
-                                        <li><a class="dropdown-item" href="#">Buns & Bakery</a></li>
-                                        <li><a class="dropdown-item" href="#">Cheese</a></li>
-                                        <li><a class="dropdown-item" href="#">Condensed Milk</a></li>
-                                        <li><a class="dropdown-item" href="#">Dairy Products</a></li>
-
-
-                                    </ul>
-                                </li>
-                                <li class="dropdown-submenu ">
-                                    <a class="dropdown-item dropdown-list-group-item dropdown-toggle" href="#">
-                                        Vegetables & Fruits
-                                    </a>
-                                    <ul class="dropdown-menu">
-
-
-                                        <li><a class="dropdown-item" href="#">Vegetables</a></li>
-                                        <li><a class="dropdown-item" href="#">Fruits</a></li>
-                                        <li><a class="dropdown-item" href="#">Exotics & Premium</a></li>
-                                        <li><a class="dropdown-item" href="#">Fresh Sprouts</a></li>
-                                        <li><a class="dropdown-item" href="#">Frozen Veg</a></li>
-
-
-                                    </ul>
-                                </li>
-                                <li class="dropdown-submenu ">
-                                    <a class="dropdown-item dropdown-list-group-item dropdown-toggle" href="#">
-                                        Cold Drinks & Juices
-                                    </a>
-                                    <ul class="dropdown-menu">
-
-
-                                        <li><a class="dropdown-item" href="#">Soft Drinks</a></li>
-                                        <li><a class="dropdown-item" href="#">Fruit Juices</a></li>
-                                        <li><a class="dropdown-item" href="#">Coldpress</a></li>
-                                        <li><a class="dropdown-item" href="#">Soda & Mixers</a></li>
-                                        <li><a class="dropdown-item" href="#">Milk Drinks</a></li>
-                                        <li><a class="dropdown-item" href="#">Health Drinks</a></li>
-                                        <li><a class="dropdown-item" href="#">Herbal Drinks</a></li>
-
-
-                                    </ul>
-                                </li>
-                            </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                               aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Pages
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="blog.html">Blog</a></li>
                                 <li><a class="dropdown-item" href="single_blog.html">Blog Single</a></li>
-                                <!-- <li><a class="dropdown-item" href="./pages/blog-category.html">Blog Category</a></li> -->
                                 <li><a class="dropdown-item" href="about_us.html">About Us</a></li>
-                                <!-- <li><a class="dropdown-item" href="./pages/404error.html">404 Error</a></li> -->
                                 <li><a class="dropdown-item" href="contact_us.html">Contact Us</a></li>
-                            </ul>
-                        </li>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                Account
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="sign_in.html">Sign in</a></li>
-                                <li><a class="dropdown-item" href="sign_up.html">Signup</a></li>
-                                <!-- <li><a class="dropdown-item" href="./pages/forgot-password.html">Forgot Password</a></li> -->
-                                <li class="dropdown-submenu dropend">
-                                    <a class="dropdown-item dropdown-list-group-item dropdown-toggle" href="#">
-                                        My Account
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="order_list.html">Orders</a></li>
-                                        <li><a class="dropdown-item" href="account_settings.html">Settings</a></li>
-                                        <!-- <li><a class="dropdown-item" href="">Address</a></li> -->
-                                        <!-- <li><a class="dropdown-item" href="./pages/account-payment-method.html">Payment Method</a> -->
-                                        <li><a class="dropdown-item" href="#">Notification</a></li>
-
-                                    </ul>
-                                </li>
                             </ul>
                         </li>
                     </ul>

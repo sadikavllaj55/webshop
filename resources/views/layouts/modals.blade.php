@@ -3,35 +3,32 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-4">
             <div class="modal-header border-0">
-                <h5 class="modal-title fs-3 fw-bold" id="userModalLabel">Sign Up</h5>
-
+                <h5 class="modal-title fs-3 fw-bold" id="userModalLabel">Sign In</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="login-form-modal" method="post" action="{{ route('login') }}">
+                    @csrf
                     <div class="mb-3">
-                        <label for="fullName" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="fullName" placeholder="Enter Your Name" required="">
+                        <input name="email" type="email" class="form-control p-4" id="email" placeholder="Email address" required>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter Email address"
-                               required="">
+                        <input name="password" type="password" class="form-control p-4" id="password" placeholder="Password" required>
                     </div>
-
-                    <div class="mb-5">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter Password"
-                               required="">
-                        <small class="form-text">By Signup, you agree to our <a href="#">Terms of Service</a> & <a
-                                    href="#">Privacy Policy</a></small>
+                    <div class="mb-3 form-check">
+                        <input name="remember_me" class="form-check-input" type="checkbox" value="" id="remember_me">
+                        <label class="form-check-label" for="remember_me">
+                            Remember me
+                        </label>
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                    <div class="form-error-container"></div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary text-uppercase">Sign In</button>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer border-0 justify-content-center">
-                Already have an account? <a href="/login">Sign in</a>
+                Don't have an account? <a href="/register">Register</a>
             </div>
         </div>
     </div>

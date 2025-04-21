@@ -1,4 +1,3 @@
-/* global $ */
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -15,27 +14,6 @@ function zoom() {
 }
 
 function filters() {
-    const slider = document.getElementById('price-limits');
-    if (slider !== null) {
-        const slider_value = document.getElementById('price-limits-value');
-        const min = parseInt(slider.dataset.min);
-        const max = parseInt(slider.dataset.max);
-
-        noUiSlider.create(slider, {
-            connect: true,
-            behaviour: "tap",
-            start: [min, max],
-            range: {
-                'min': min,
-                'max': max
-            },
-            format: wNumb({decimals: 1, thousand: ".", prefix: "$"})
-        });
-
-        slider.noUiSlider.on("update", function (t) {
-            slider_value.innerHTML = t.join(" - ")
-        });
-    }
 
     const filter_form = document.getElementById('filter-form');
 
@@ -50,8 +28,56 @@ function filters() {
             const $input = $('input[name="view"]');
             const current_view = $input.val();
             const view = $(this).data('view');
+
             if (current_view !== view) {
-                $input.val(view).trigger('change')
+                $input.val(view).trigger('change');
+            }
+        });
+
+        $('.category-link').on('click', function (e) {
+            const $input = $('input[name="cat_id"]');
+            const current_category = $input.val();
+            const selected_category = $(this).data('category');
+
+            if (current_category !== selected_category) {
+                $input.val(selected_category).trigger('change');
+            }
+        });
+    }
+
+    const slider = document.getElementById('price-limits');
+    if (slider !== null) {
+        const slider_value = document.getElementById('price-limits-value');
+        const min = parseInt(slider.dataset.min);
+        const max = parseInt(slider.dataset.max);
+        const start = parseInt(slider.dataset.start);
+        const end = parseInt(slider.dataset.end);
+
+        noUiSlider.create(slider, {
+            connect: true,
+            step: 1,
+            behaviour: "tap",
+            start: [start, end],
+            range: {
+                'min': min, 'max': max
+            },
+            format: wNumb({decimals: 1, thousand: ".", prefix: "$"})
+        });
+
+        slider.noUiSlider.on('update', function (t) {
+            slider_value.innerHTML = t.join(" - ")
+        });
+
+        slider.noUiSlider.on('change', function (t) {
+            const [min_price, max_price] = this.get(true);
+            const $input_min = $('input[name="price_min"]');
+            const $input_max = $('input[name="price_max"]');
+            const current_min_price = parseInt($input_min.val());
+            const current_max_price = parseInt($input_max.val());
+
+            if ((min_price !== current_min_price) || (max_price !== current_max_price)) {
+                $input_min.val(min_price);
+                $input_max.val(max_price).trigger('change');
             }
         });
     }
@@ -60,14 +86,9 @@ function filters() {
 function cartEvents() {
     $('.add-cart').off('click').on('click', function () {
         $.ajax({
-            method: 'POST',
-            url: '/cart',
-            data: {
-                operation: 'add',
-                product: $(this).data('product'),
-                quantity: $(this).data('quantity') || 1
-            },
-            success: function (result) {
+            method: 'POST', url: '/cart', data: {
+                operation: 'add', product: $(this).data('product'), quantity: $(this).data('quantity') || 1
+            }, success: function (result) {
                 updateShoppingCartUI(result);
             }
         });
@@ -75,14 +96,9 @@ function cartEvents() {
 
     $('.sub-cart').off('click').on('click', function () {
         $.ajax({
-            method: 'POST',
-            url: '/cart',
-            data: {
-                operation: 'sub',
-                product: $(this).data('product'),
-                quantity: $(this).data('quantity') || 1
-            },
-            success: function (result) {
+            method: 'POST', url: '/cart', data: {
+                operation: 'sub', product: $(this).data('product'), quantity: $(this).data('quantity') || 1
+            }, success: function (result) {
                 updateShoppingCartUI(result);
             }
         });
@@ -90,13 +106,9 @@ function cartEvents() {
 
     $('.cart-remove-item').off('click').on('click', function () {
         $.ajax({
-            method: 'POST',
-            url: '/cart',
-            data: {
-                operation: 'clear',
-                product: $(this).data('product')
-            },
-            success: function (result) {
+            method: 'POST', url: '/cart', data: {
+                operation: 'clear', product: $(this).data('product')
+            }, success: function (result) {
                 updateShoppingCartUI(result);
             }
         });
@@ -175,9 +187,7 @@ function rating() {
 
     ratings.forEach((el) => {
         raterJs({
-            element: el,
-            readOnly: true,
-            rate: parseFloat(el.dataset.rate)
+            element: el, readOnly: true, rate: parseFloat(el.dataset.rate)
         });
     });
 }
@@ -242,10 +252,54 @@ function imgSliders() {
     }
 }
 
+function modalLogin() {
+    /** @type HTMLFormElement */
+    const $form = document.getElementById('login-form-modal');
+
+    $form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        $form.querySelector('button[type="submit"]').disabled = true;
+
+        $.ajax({
+            url: $form.action,
+            method: $form.method,
+            processData: false,
+            contentType: false,
+            data: new FormData($form),
+            success: function (data) {
+                location.reload();
+            },
+            error: function (error) {
+                const response = error.responseJSON;
+                const error_container = $form.querySelector('.form-error-container');
+                if (error_container) {
+                    error_container.innerHTML = `<div class="alert alert-danger">${response.message}</div>`;
+                }
+            },
+            complete: function () {
+                $form.querySelector('button[type="submit"]').disabled = false;
+            }
+        });
+    });
+}
+
+function logout() {
+    const logout_btns = document.querySelectorAll('.logout-link');
+
+    logout_btns.forEach(el => {
+        el.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            document.getElementById('logout-form').submit();
+        });
+    });
+}
+
 window.addEventListener('load', () => {
     filters();
     cartEvents();
     rating();
     imgSliders();
     bsRating();
+    modalLogin();
+    logout();
 });

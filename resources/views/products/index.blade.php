@@ -6,7 +6,10 @@
 <form name="filter-form" id="filter-form" method="get" action="{{ route('products.index') }}">
     <input class="filter-input" type="hidden" name="cat_id" value="{{ $category }}">
     <input class="filter-input" type="hidden" name="view" value="{{ $view }}">
-    <section class=" mt-8 mb-lg-14 mb-8">
+    <input class="filter-input" type="hidden" name="price_min" value="{{ $price_min }}">
+    <input class="filter-input" type="hidden" name="price_max" value="{{ $price_max }}">
+
+    <section class="mt-8 mb-lg-14 mb-8">
         <div class="container">
             <div class="row gx-10">
                 <!-- Filters -->
@@ -57,7 +60,9 @@
                     <!-- Pagination -->
                     <div class="row mt-8">
                         <div class="col">
-                            <nav>{{ $products->links() }}</nav>
+                            <nav>
+                                {{ $products->links() }}
+                            </nav>
                         </div>
                     </div>
                 </div>
@@ -69,5 +74,4 @@
 
 @section('scripts')
     <script src="{{ asset('assets/js/page/app.js') }}"></script>
-    <script></script>
 @endsection

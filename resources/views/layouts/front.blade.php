@@ -22,7 +22,7 @@
     <link href="{{ asset('assets/css/prism-okaidia.min.css') }}" rel="stylesheet"/>
 
     <link href="{{ asset('assets/css/theme.min.css') }}" rel="stylesheet"/>
-    @livewireStyles
+    <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet"/>
 </head>
 
 <body>
@@ -55,6 +55,6 @@
 <script src="{{ asset('assets/libs/rater.js') }}"></script>
 
 @yield('scripts')
-@livewireScripts
+<script></script>
 </body>
 </html>
