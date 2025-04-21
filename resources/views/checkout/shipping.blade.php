@@ -25,25 +25,29 @@
                 </div>
 
                 <div class="col-12">
-                    <input type="text" name="address_line" class="form-control" placeholder="Address Line 1">
+                    <input type="text" name="address_line_1" class="form-control" placeholder="Address Line 1" required>
                 </div>
 
                 <div class="col-12">
-                    <input type="text" name="city" class="form-control" placeholder="City">
+                    <input type="text" name="address_line_2" class="form-control" placeholder="Address Line 2">
                 </div>
 
                 <div class="col-12">
-                    <input type="text" name="state" class="form-control" placeholder="State">
+                    <input type="text" name="city" class="form-control" placeholder="City" required>
                 </div>
 
                 <div class="col-12">
-                    <input type="text" name="country" class="form-control" placeholder="Country">
+                    <input type="text" name="state" class="form-control" placeholder="State" required>
                 </div>
 
                 <div class="col-12">
-                    <input type="text" name="zip_code" class="form-control" placeholder="Zip Code">
+                    <input type="text" name="country" class="form-control" placeholder="Country" required>
                 </div>
 
+                <div class="col-12">
+                    <input type="text" name="zip_code" class="form-control" placeholder="Zip Code" required>
+                </div>
+                <input type="hidden" name="order_id" value="{{ $order->id }}">
                 <div class="col-12 text-end">
                     <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cancel</button>
                     <button class="btn btn-primary" type="submit">Save Address</button>

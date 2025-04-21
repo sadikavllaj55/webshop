@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Product;
 use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
@@ -42,10 +43,11 @@ class OrderController extends Controller
 
             $totalPrice += $price * $quantity;
         }
+
         $order = Order::create([
             'reference_id' => Str::random(10),
             'total_price' => $totalPrice,
-            'status_id' => 1,//pending
+            'status' => 'pending',
         ]);
 
         foreach ($items as $item) {
@@ -71,7 +73,6 @@ class OrderController extends Controller
 
     public function ordeRref($referenceId)
     {
-
         $order = Order::where('reference_id', $referenceId)->firstOrFail();
 
         return view('checkout.shipping', compact('order'));
@@ -84,6 +85,22 @@ class OrderController extends Controller
 
     public function storeAddress(Request $request)
     {
-        dd($request->all());
+        $address = Address::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'address_line_1' => $request->address_line_1,
+            'address_line_2' => $request->address_line_2,
+            'city' => $request->city,
+            'state' => $request->state,
+            'country' => $request->country,
+            'postal_code' => $request->zip_code,
+        ]);
+
+        $order = Order::find($request->order_id);
+        $order->update([
+            'address_id' => $address->id,
+        ]);
+
+        return view('checkout.payment', compact('order'));
     }
 }
