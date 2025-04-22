@@ -39,6 +39,8 @@ class OrderController extends Controller
         DB::transaction(function () use ($request) {
             $items = $this->getCartItems();
             $address = $this->storeAddress($request);
+            $payment = $this->storePayment($request);
+
             $totalPrice = 0;
 
             foreach ($items as $item) {
@@ -47,16 +49,6 @@ class OrderController extends Controller
 
                 $totalPrice += $price * $quantity;
             }
-
-            $payment = PaymentData::create([
-                'type' => 'paypal',
-                'data' => [
-                    'card_number' => $request->card_nr,
-                    'card_name' => $request->card_name,
-                    'card_expiry' => $request->card_expiry,
-                    'card_cvc' => $request->card_cvc
-                ],
-            ]);
 
             $order = Order::create([
                 'reference_id' => Str::random(10),
@@ -84,7 +76,10 @@ class OrderController extends Controller
                     'total' => $totalPrice
                 ]);
             }
+            session()->forget('cart');
+            return
         });
+        return redirect()->route('checkout.thankyou')->with('order', $order);
     }
 
     public function getProducts($productIds)
@@ -94,7 +89,7 @@ class OrderController extends Controller
 
     public function storeAddress($request)
     {
-       return  Address::create([
+        return  Address::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'address_line_1' => $request->address_line_1,
@@ -104,5 +99,23 @@ class OrderController extends Controller
             'country' => $request->country,
             'postal_code' => $request->zip_code,
         ]);
+    }
+
+    public function storePayment(Request $request)
+    {
+            return PaymentData::create([
+            'type' => 'paypal',
+            'data' => [
+                'card_number' => $request->card_nr,
+                'card_name' => $request->card_name,
+                'card_expiry' => $request->card_expiry,
+                'card_cvc' => $request->card_cvc
+            ],
+        ]);
+    }
+
+    public function thankYou()
+    {
+        return view('checkout.thankyou');
     }
 }

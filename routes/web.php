@@ -21,13 +21,14 @@ Route::get('/products/{id}', [ProductController::class, 'show'])->name('products
 
 Route::get('/checkout', [OrderController::class, 'index'])->name('checkout.index');
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
-Route::post('/order/saveAddress', [OrderController::class, 'storeAddress'])->name('save.address');
+Route::get('/thankyou', [OrderController::class, 'thankYou'])->name('checkout.thankyou');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth');
 
-Route::view('/test', 'checkout.test');
+
+
 
 
 
