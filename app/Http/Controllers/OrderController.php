@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\PaymentData;
 use App\Models\Product;
 use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
 use App\Models\OrderItem;
 use App\Models\Order;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -34,43 +36,55 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        $items = $this->getCartItems();
-        $address = $this->storeAddress($request);
-        $totalPrice = 0;
+        DB::transaction(function () use ($request) {
+            $items = $this->getCartItems();
+            $address = $this->storeAddress($request);
+            $totalPrice = 0;
 
-        foreach ($items as $item) {
-            $price = $item['price'];
-            $quantity = $item['quantity'];
+            foreach ($items as $item) {
+                $price = $item['price'];
+                $quantity = $item['quantity'];
 
-            $totalPrice += $price * $quantity;
-        }
+                $totalPrice += $price * $quantity;
+            }
 
-        $order = Order::create([
-            'reference_id' => Str::random(10),
-            'address_id' => $address->id,
-            'customer_email' => $request->email,
-            'customer_phone' => $request->phone,
-            'total_price' => $totalPrice,
-            'status' => 'pending',
-        ]);
-
-        foreach ($items as $item) {
-            $productId = $item['product_id'];
-            $price = $item['price'];
-            $quantity = $item['quantity'];
-            $totalPrice = $price * $quantity;
-
-            $productDetails = $this->getProducts([$productId]);
-            $productName = $productDetails->pluck('name')->implode(', ');
-            OrderItem::create([
-                'order_id' => $order->id,
-                'product_id' => $productId,
-                'product_name' => $productName,
-                'price' => $price,
-                'quantity' => $quantity,
-                'total' => $totalPrice
+            $payment = PaymentData::create([
+                'type' => 'paypal',
+                'data' => [
+                    'card_number' => $request->card_nr,
+                    'card_name' => $request->card_name,
+                    'card_expiry' => $request->card_expiry,
+                    'card_cvc' => $request->card_cvc
+                ],
             ]);
-        }
+
+            $order = Order::create([
+                'reference_id' => Str::random(10),
+                'address_id' => $address->id,
+                'payment_id' => $payment->id,
+                'customer_email' => $request->email,
+                'customer_phone' => $request->phone,
+                'total_price' => $totalPrice,
+                'status' => 'pending',
+            ]);
+
+            foreach ($items as $item) {
+                $productId = $item['product_id'];
+                $price = $item['price'];
+                $quantity = $item['quantity'];
+                $totalPrice = $price * $quantity;
+
+                $productDetails = $this->getProducts([$productId]);
+                $productName = $productDetails->pluck('name')->implode(', ');
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $productId,
+                    'price' => $price,
+                    'quantity' => $quantity,
+                    'total' => $totalPrice
+                ]);
+            }
+        });
     }
 
     public function getProducts($productIds)
