@@ -50,6 +50,11 @@ class ShoppingCart implements \JsonSerializable
         return $total;
     }
 
+    public function empty(): bool
+    {
+        return empty($this->items);
+    }
+
     public function save(): void
     {
         session()->put('cart', $this);
@@ -61,6 +66,14 @@ class ShoppingCart implements \JsonSerializable
     public function getItems(): array
     {
         return $this->items;
+    }
+
+    public function getItemsForInsert(): array
+    {
+        return array_map(function ($item) {
+            unset($item->product);
+            return $item;
+        }, $this->getItems());
     }
 
     /**
@@ -79,7 +92,12 @@ class ShoppingCart implements \JsonSerializable
         return $cart;
     }
 
-    public function jsonSerialize(): mixed
+    public function clear(): void
+    {
+        $this->items = [];
+    }
+
+    public function jsonSerialize(): array
     {
         return [
             'items' => $this->items,

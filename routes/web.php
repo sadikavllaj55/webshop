@@ -14,21 +14,13 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login.for
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+// Products
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/cart', [ProductController::class, 'updateCart'])->name('updateCart');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
-Route::get('/checkout', [OrderController::class, 'index'])->name('checkout.index');
-Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
-Route::get('/thankyou', [OrderController::class, 'thankYou'])->name('checkout.thankyou');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware('auth');
-
-
-
-
-
-
+// Orders
+Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout.index');
+Route::post('/checkout', [OrderController::class, 'create'])->name('orders.create');
+Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');

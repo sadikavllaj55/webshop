@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class PaymentData extends Model
 {
-    protected $fillable = ['type', 'data'];
+    protected $table = 'payments';
+
+    protected $fillable = ['payment_method', 'data'];
+
     protected $casts = [
         'data' => 'array',
     ];

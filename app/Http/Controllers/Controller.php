@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\ShoppingCart;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 
 abstract class Controller
@@ -19,6 +20,7 @@ abstract class Controller
         View::share('ps_options', $this->pageSizeOptions());
         View::share('sort_options', $this->sortingOptions());
         View::share('cart', ShoppingCart::fromSession());
+        View::share('countries', $this->countries());
     }
 
     protected function pageSizeOptions(): array
@@ -33,6 +35,21 @@ abstract class Controller
             'price' => 'Price: Low to High',
             'price_desc' => 'Price: High to Low',
             'rating' => 'Avg. Rating',
+        ];
+    }
+
+    protected function countries(): array
+    {
+        return [
+            'al' => 'Albania',
+            'uk' => 'United Kingdom',
+            'fr' => 'France',
+            'de' => 'Germany',
+            'es' => 'Spain',
+            'it' => 'Italy',
+            'pt' => 'Portugal',
+            'us' => 'United States',
+
         ];
     }
 }
