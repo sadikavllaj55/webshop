@@ -111,11 +111,12 @@
                         <ul class="list-group list-group-flush">
                             <!-- list group item -->
                             @php $i = 1; @endphp
-                            @foreach($items as $item)
+
+                            @foreach($cart->getItems() as $item)
                             <li class="list-group-item px-4 py-3">
                                 <div class="row align-items-center">
                                     <div class="col-2 col-md-2">
-                                        {{ $i++ }}</div>
+                                        <img src="{{ asset($item->product->image->path) }}" alt="Ecommerce" class="img-fluid"></div>
                                     <div class="col-5 col-md-5">
                                         <h6 class="mb-0">{{ $item->product->name }}</h6>
                                         <span><small class="text-muted">${{ $item->price }}</small></span>
