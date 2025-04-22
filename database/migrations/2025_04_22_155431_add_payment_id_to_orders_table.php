@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payment_data', function (Blueprint $table) {
-            $table->id();
-            $table->string('type');
-            $table->json('data')->nullable();
-            $table->timestamps();
+        Schema::table('orders', function (Blueprint $table) {
+            Schema::table('orders', function (Blueprint $table) {
+                $table->unsignedBigInteger('payment_id')->nullable()->after('id');
+            });
         });
     }
 
@@ -24,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payment_data');
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropColumn('payment_id');
+        });
     }
 };

@@ -8,6 +8,7 @@ class Order extends Model
 {
     protected $fillable = [
         'reference_id',
+        'payment_id',
         'address_id',
         'customer_email',
         'customer_phone',
@@ -23,5 +24,10 @@ class Order extends Model
     public function address()
     {
         return $this->belongsTo(Address::class);
+    }
+
+    public function payment()
+    {
+        return $this->belongsTo(PaymentData::class);
     }
 }
