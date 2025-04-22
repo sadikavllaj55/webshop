@@ -56,7 +56,7 @@
             <div id="price-limits"
                  data-min="{{ $price_limits['min'] }}"
                  data-max="{{ $price_limits['max'] }}"
-                 data-start="{{ $price_min ?? $price_limits['max'] }}"
+                 data-start="{{ $price_min ?? $price_limits['min'] }}"
                  data-end="{{ $price_max ?? $price_limits['max'] }}"
                  class="mb-3"></div>
             <small class="text-muted">Price:</small> <span id="price-limits-value" class="small"></span>
