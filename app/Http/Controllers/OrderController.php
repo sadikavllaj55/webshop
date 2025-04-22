@@ -35,8 +35,8 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $items = $this->getCartItems();
-        dd($items);
-        $items = $request->input('items', []);
+
+        $address = $this->storeAddress($request);
         $totalPrice = 0;
 
         foreach ($items as $item) {
@@ -48,6 +48,9 @@ class OrderController extends Controller
 
         $order = Order::create([
             'reference_id' => Str::random(10),
+            'address_id' => $address->id,
+            'customer_email' => $request->email,
+            'customer_phone' => $request->phone,
             'total_price' => $totalPrice,
             'status' => 'pending',
         ]);
@@ -57,7 +60,7 @@ class OrderController extends Controller
             $price = $item['price'];
             $quantity = $item['quantity'];
             $totalPrice = $price * $quantity;
-            // You can dump or do something with $price here
+
             $productDetails = $this->getProducts([$productId]);
             $productName = $productDetails->pluck('name')->implode(', ');
             OrderItem::create([
@@ -70,6 +73,8 @@ class OrderController extends Controller
             ]);
 
         }
+        dd('here');
+
         return $this->ordeRref($order->reference_id);
     }
 
@@ -85,9 +90,9 @@ class OrderController extends Controller
         return Product::whereIn('id', $productIds)->get();
     }
 
-    public function storeAddress(Request $request)
+    public function storeAddress($request)
     {
-        $address = Address::create([
+       return  Address::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'address_line_1' => $request->address_line_1,
@@ -97,12 +102,5 @@ class OrderController extends Controller
             'country' => $request->country,
             'postal_code' => $request->zip_code,
         ]);
-
-        $order = Order::find($request->order_id);
-        $order->update([
-            'address_id' => $address->id,
-        ]);
-
-        return view('checkout.payment', compact('order'));
     }
 }

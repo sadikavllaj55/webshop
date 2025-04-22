@@ -78,6 +78,14 @@
                         </div>
 
                         <div class="col-12">
+                            <input type="text" name="email" class="form-control" placeholder="Email" required>
+                        </div>
+
+                        <div class="col-12">
+                            <input type="text" name="phone" class="form-control" placeholder="Phone number" required>
+                        </div>
+
+                        <div class="col-12">
                             <input type="text" name="address_line_1" class="form-control" placeholder="Address Line 1" required>
                         </div>
 
@@ -101,8 +109,8 @@
                             <input type="text" name="zip_code" class="form-control" placeholder="Zip Code" required>
                         </div>
                         <div class="col-12 text-end">
-                            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cancel</button>
-                            <button class="btn btn-primary" type="submit">Save Address</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ route('products.index') }}'" data-bs-dismiss="modal">Cancel</button>
+                            <button class="btn btn-primary" type="submit">Continue Payment</button>
                         </div>
                     </div>
                 </form>
