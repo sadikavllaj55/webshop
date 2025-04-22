@@ -37,7 +37,7 @@ class OrderController extends Controller
                 'postal_code' => $data['postal_code'],
             ]);
 
-            $payment = PaymentData::create([
+            $payment = PaymentData::query()->create([
                 'payment_method' => $request->payment_type,
                 'data' => [
                     'card_nr' => $request->card_nr,
