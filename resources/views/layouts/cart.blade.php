@@ -52,7 +52,7 @@
                                     </div>
                                 </div>
                                 <div class="col-2 text-end">
-                                    <span class="fw-bold product-price">{{ $item->price }}</span>
+                                    <span class="fw-bold product-price">${{ number_format($item->price, 2) }}</span>
                                 </div>
                             </div>
                         </li>
@@ -63,7 +63,7 @@
                 @if(!empty($cart->getItems()))
                     <a href="{{ route('checkout.index') }}" class="btn btn-primary btn-lg d-flex justify-content-between align-items-center"
                             type="submit" id="cart-submit-btn">
-                        Go to Checkout <span class="fw-bold" id="cart-total">${{ $cart->getTotal() }}</span>
+                        Go to Checkout <span class="fw-bold" id="cart-total">${{ number_format($cart->getTotal(), 2) }}</span>
                     </a>
                 @else
                     <div class="alert alert-warning">

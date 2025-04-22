@@ -17,16 +17,17 @@ class ProductController extends Controller
 {
     public function index(Request $request): View
     {
-        $view = $request->query('view', 'grid');
+        // Filters
         $page_size = $request->query('ps', 10);
         $order = $request->query('order', 'date');
         $min_rating = $request->query('min_rating');
         $price_min = $request->query('price_min');
         $price_max = $request->query('price_max');
-
         $category = $request->query('cat_id');
+
         $selected_category = null;
 
+        $view = $request->query('view', 'grid');
         if ($view === 'grid') {
             $product_list_classes = 'row g-4 row-cols-xl-4 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2';
         } elseif ($view === 'list') {
@@ -39,6 +40,7 @@ class ProductController extends Controller
 
         $price_limits = Product::query()->select(DB::raw('MIN(price) as min, MAX(price) as max'))->first();
 
+        // Apply filters
         if ($category !== null) {
             $query = $query->where('products.category_id', '=', $category)
                 ->orWhere('categories.parent_id', '=', $category);

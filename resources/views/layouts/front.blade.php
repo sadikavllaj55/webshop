@@ -52,7 +52,6 @@
 <script src="{{ asset('assets/js/dropzone.min.js') }}"></script>
 <script src="{{ asset('assets/js/flatpickr.min.js') }}"></script>
 <script src="{{ asset('assets/js/theme.min.js') }}"></script>
-<script src="{{ asset('assets/libs/rater.js') }}"></script>
 
 @yield('scripts')
 <script></script>

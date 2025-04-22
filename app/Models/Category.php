@@ -70,6 +70,6 @@ class Category extends Model
             return false;
         }
 
-        return $this->id == $id || $this->children()->pluck('id')->contains($id);
+        return $this->id == $id || $this->children->pluck('id')->contains($id);
     }
 }

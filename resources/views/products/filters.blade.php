@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \Illuminate\Database\Eloquent\Collection<\App\Models\Category> $categories
+ */
+?>
 <div class="col-lg-3 col-md-4 mb-6 mb-md-0">
     <!-- Category -->
     <div class="py-4">
@@ -7,7 +12,7 @@
                 <li class="nav-item d-flex flex-wrap align-items-center justify-content-between border-bottom w-100 {{ $cat->inTree($category) ? '' : 'collapsed' }}">
                     <a href="#" class="{{ $category == $cat->id ? 'nav-link-active ' : ''}}nav-link category-link"
                        data-category="{{ $cat->id }}">{{ $cat->name }}</a>
-                    @if($cat->children)
+                    @if($cat->children->count() > 0)
                         <a class="btn btn-icon border-0"
                            data-bs-toggle="collapse"
                            data-bs-target="#category{{ $cat->id }}"
@@ -16,7 +21,7 @@
                             <i class="bi bi-chevron-right"></i>
                         </a>
                     @endif
-                    @if($cat->children)
+                    @if($cat->children->count() > 0)
                         <div id="category{{ $cat->id }}"
                              class="w-100 accordion-collapse collapse {{ $cat->inTree($category) ? 'show' : '' }}"
                              data-bs-parent="#categoryCollapseMenu">

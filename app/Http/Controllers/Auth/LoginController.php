@@ -26,7 +26,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            if ($request->isXmlHttpRequest()) {
+            if ($request->isXmlHttpRequest()) { // isAjax
                 return response()->json([
                     'success' => true,
                     'message' => 'Login Successful',

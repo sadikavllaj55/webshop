@@ -13,6 +13,13 @@
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Shop</a></li>
+                            @if($product->category->parent)
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('products.index', ['cat_id' => $product->category->parent->id]) }}">
+                                    {{ $product->category->parent->name }}
+                                </a>
+                            </li>
+                            @endif
                             <li class="breadcrumb-item">
                                 <a href="{{ route('products.index', ['cat_id' => $product->category_id]) }}">
                                     {{ $product->category->name }}

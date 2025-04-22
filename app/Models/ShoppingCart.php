@@ -101,7 +101,7 @@ class ShoppingCart implements \JsonSerializable
     {
         return [
             'items' => $this->items,
-            'total' => $this->getTotal(),
+            'total' => number_format($this->getTotal(), 2),
         ];
     }
 }

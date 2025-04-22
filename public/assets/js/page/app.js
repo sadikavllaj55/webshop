@@ -18,9 +18,9 @@ function filters() {
     const filter_form = document.getElementById('filter-form');
 
     if (filter_form !== null) {
+        // When a filter input changes it's value
         $('.filter-input').on('change', function () {
             $(':input.filter-input[value=""]').attr('disabled', true);
-            /** @param {HTMLFormElement} filter_form */
             filter_form.submit();
         });
 
@@ -37,7 +37,7 @@ function filters() {
         $('.category-link').on('click', function (e) {
             const $input = $('input[name="cat_id"]');
             const current_category = $input.val();
-            const selected_category = $(this).data('category');
+            const selected_category = $(this).data('category'); // data-category
 
             if (current_category !== selected_category) {
                 $input.val(selected_category).trigger('change');
@@ -130,6 +130,9 @@ function updateShoppingCartUI(result) {
     for (const [, item] of Object.entries(result.items)) {
         const li = document.createElement('li');
         li.className = 'list-group-item py-3 px-0';
+        const price = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(
+            item.price,
+        );
         li.innerHTML = `
             <div class="row row align-items-center">
                 <div class="col-2">
@@ -162,7 +165,7 @@ function updateShoppingCartUI(result) {
                     </div>
                 </div>
                 <div class="col-2 text-end">
-                    <span class="fw-bold product-price">${item.price}</span>
+                    <span class="fw-bold product-price">${price}</span>
                 </div>
             </div>`;
         cart_item_container.append(li);
@@ -182,20 +185,11 @@ function updateShoppingCartUI(result) {
     cartEvents();
 }
 
-function rating() {
-    const ratings = document.querySelectorAll('.product-rating');
-
-    ratings.forEach((el) => {
-        raterJs({
-            element: el, readOnly: true, rate: parseFloat(el.dataset.rate)
-        });
-    });
-}
-
 function bsRating() {
     const ratings = document.querySelectorAll('.bs-rating');
     ratings.forEach((el) => {
         let html = '<span class="text-warning">';
+
         let val = parseFloat(el.dataset.rating) || 0;
         const max = parseInt(el.dataset.max) || 5;
 
@@ -297,7 +291,6 @@ function logout() {
 window.addEventListener('load', () => {
     filters();
     cartEvents();
-    rating();
     imgSliders();
     bsRating();
     modalLogin();

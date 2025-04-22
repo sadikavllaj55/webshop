@@ -2,7 +2,7 @@
     <div class="card card-product">
         <div class="card-body">
             <div class="text-center position-relative">
-                <a href="#">
+                <a href="{{ route('products.show', $product->id) }}">
                     <img src="{{ asset($product->image_path) }}" class="mb-3 img-fluid"
                          alt="{{ $product->name }}">
                 </a>
@@ -21,7 +21,7 @@
             </h2>
             <!-- rating -->
             <div>
-                <small class="product-rating" data-rating="{{ number_format($product->rating, 2) }}"></small>
+                <span class="bs-rating" data-rating="{{ number_format($product->rating, 2) }}"></span>
                 <span class="text-muted small">{{ number_format($product->rating, 2) }}({{ $product->total_reviews }})</span>
             </div>
             <!-- price -->
