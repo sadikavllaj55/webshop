@@ -35,7 +35,6 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $items = $this->getCartItems();
-
         $address = $this->storeAddress($request);
         $totalPrice = 0;
 
@@ -71,18 +70,7 @@ class OrderController extends Controller
                 'quantity' => $quantity,
                 'total' => $totalPrice
             ]);
-
         }
-        dd('here');
-
-        return $this->ordeRref($order->reference_id);
-    }
-
-    public function ordeRref($referenceId)
-    {
-        $order = Order::where('reference_id', $referenceId)->firstOrFail();
-
-        return view('checkout.shipping', compact('order'));
     }
 
     public function getProducts($productIds)
